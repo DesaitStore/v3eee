@@ -1307,12 +1307,6 @@ document.getElementById('confirm-payment').addEventListener('click',()=>{
 @media(max-width:480px){#support-chat-launcher{right:14px;bottom:14px;padding:11px 14px}#support-chat-panel{right:8px;bottom:72px;width:calc(100vw - 16px);height:min(530px,calc(100dvh - 92px));border-radius:18px}}
 @media(prefers-reduced-motion:reduce){#support-chat-panel.open{animation:none}#support-chat-launcher{transition:none}}
 </style>
-<div id="support-chat-panel" role="dialog" aria-label="Чат с поддержкой" aria-hidden="true">
- <div id="support-chat-header"><div id="support-chat-avatar">V</div><div id="support-chat-heading"><strong>Поддержка v3eny</strong><small><span aria-hidden="true">●</span> Поможем с вопросом</small></div><button id="support-chat-close" type="button" aria-label="Закрыть чат">×</button></div>
- <div id="support-chat-messages" aria-live="polite"><div class="support-chat-message bot">Привет! 👋 Чем можем помочь? Выбери тему или напиши свой вопрос.</div></div>
- <div id="support-chat-quick"><button type="button" data-support-topic="Как оформить заказ?">Как оформить заказ?</button><button type="button" data-support-topic="Вопрос по оплате">Оплата</button><button type="button" data-support-topic="Где мой заказ?">Мой заказ</button></div>
- <form id="support-chat-form"><textarea id="support-chat-input" rows="1" maxlength="1000" placeholder="Напишите сообщение…" aria-label="Ваше сообщение" required></textarea><button id="support-chat-send" type="submit" aria-label="Отправить сообщение">➤</button></form>
- <div id="support-chat-note">Демо-чат: сообщения пока не отправляются оператору</div>
 </div>
 <script id="v3eny-support-chat-script">
 (()=>{
