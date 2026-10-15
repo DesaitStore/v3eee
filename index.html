@@ -1037,6 +1037,15 @@ document.getElementById('confirm-payment').addEventListener('click',()=>{
  $('cart-trigger').addEventListener('click',open);$('cart-close').addEventListener('click',close);$('cart-backdrop').addEventListener('click',e=>{if(e.target===$('cart-backdrop'))close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
  $('add-to-cart').addEventListener('click',()=>{if(!chosenProduct||!chosenOption)return;const match=String(chosenOption.price).match(/[\d\s]+/);if(!match){$('cart-message').textContent='Для этого варианта цена ещё не указана. Выбери вариант с фиксированной ценой.';open();return}const price=Number(match[0].replace(/\s/g,''));if(!Number.isFinite(price)||price<=0){$('cart-message').textContent='У этого варианта пока нет фиксированной цены.';open();return}const name=chosenOption.name;const found=cart.find(x=>x.product===chosenProduct&&x.name===name&&x.price===price);if(found)found.qty++;else cart.push({product:chosenProduct,name,price,qty:1});save();const btn=$('add-to-cart');btn.textContent='✓ Добавлено';setTimeout(()=>{btn.textContent='＋ В корзину'},1100);});
  $('cart-checkout').addEventListener('click',async()=>{
+  // Оформление доступно только пользователю с активной сессией Supabase.
+  if(typeof window.v3enyHasAuthSession!=='function' || !(await window.v3enyHasAuthSession())){
+    $('cart-message').style.color='#a23b2b';
+    $('cart-message').textContent='Чтобы оформить заказ, сначала войди в аккаунт или зарегистрируйся.';
+    $('cart-close').click();
+    if(typeof window.v3enyOpenAccount==='function') window.v3enyOpenAccount();
+    else document.getElementById('account-trigger')?.click();
+    return;
+  }
   if(!cart.length){$('cart-message').textContent='Сначала добавь товар в корзину.';return;}
   const contact=$('checkout-contact').value.trim();
   const comment=$('checkout-comment').value.trim()||'Нет комментария';
@@ -1157,6 +1166,9 @@ document.getElementById('confirm-payment').addEventListener('click',()=>{
   $('account-logout').addEventListener('click',async()=>{await client.auth.signOut();profile=null;mode='login';updateNav();renderForm('Ты вышел из аккаунта.')});
  }
  async function open(){updateNav();backdrop.classList.add('open');backdrop.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';const {data}=await client.auth.getSession();profile=profileFromUser(data.session?.user);if(profile)renderProfile();else renderForm()}
+ // Shared helpers let checkout verify the real Supabase login session.
+ window.v3enyHasAuthSession=async function(){try{const {data,error}=await client.auth.getSession();return !error && !!data.session?.user;}catch(e){return false;}};
+ window.v3enyOpenAccount=()=>open();
  function close(){backdrop.classList.remove('open');backdrop.setAttribute('aria-hidden','true');document.body.style.overflow=''}
  $('account-trigger').addEventListener('click',open);$('account-close').addEventListener('click',close);backdrop.addEventListener('click',e=>{if(e.target===backdrop)close()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&backdrop.classList.contains('open'))close()});
  client.auth.getSession().then(({data})=>{profile=profileFromUser(data.session?.user);updateNav()});client.auth.onAuthStateChange((_event,session)=>{profile=profileFromUser(session?.user);updateNav()});updateNav();
