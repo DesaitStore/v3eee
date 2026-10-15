@@ -70,6 +70,45 @@ footer{border-top:1px solid #ffffff12;padding:26px 0 36px;color:var(--muted);fon
 .profile-save-button{width:100%;height:48px;margin-top:14px;border:0;border-radius:9px;background:#0877e8;color:white;font:inherit;font-weight:800;cursor:pointer}
 .profile-save-button:hover{background:#086bd0}
 @media(max-width:560px){.profile-settings-editor{grid-template-columns:1fr;gap:20px;padding:16px}.profile-avatar-preview{width:80px;height:80px}}
+ 
+@media (max-width: 700px) {
+  .nav {
+    height: auto;
+    min-height: 76px;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .brand {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .search {
+    order: 3;
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .search input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    min-height: 48px;
+    padding: 14px 15px 14px 42px;
+    font-size: 16px;
+  }
+
+  .nav-action {
+    flex-shrink: 0;
+  }
+}
+
 </style>
 <style>
 
