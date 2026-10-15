@@ -1200,8 +1200,8 @@ document.getElementById('confirm-payment').addEventListener('click',()=>{
  if(!card) card=cards.find(c=>(c.dataset.name||'').toLowerCase().includes(key));
  if(card){card.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>{const target=card.querySelector('.product-icon')||card.querySelector('.art')||card;target.click();},250);}else{document.querySelector('#catalog')?.scrollIntoView({behavior:'smooth',block:'start'});}
  }
- документ.querySelectorAll('[data-open-product]').forEach(b=>b.addEventListener('click',()=>openProduct(b.dataset.openProduct)));
- документ.querySelectorAll('[data-jump-product]').forEach(b=>b.addEventListener('click',()=>openProduct(b.dataset.jumpProduct)));
+ document.querySelectorAll('[data-open-product]').forEach(b=>b.addEventListener('click',()=>openProduct(b.dataset.openProduct)));
+ document.querySelectorAll('[data-jump-product]').forEach(b=>b.addEventListener('click',()=>openProduct(b.dataset.jumpProduct)));
 })();</script>
 <script id="steam-topup-integration-script">(()=>{
  const amount=document.getElementById('steamAmount'),buy=document.getElementById('steamBuyButton'),login=document.getElementById('steamLogin'),status=document.getElementById('steamTopupStatus');
@@ -1217,9 +1217,9 @@ document.getElementById('confirm-payment').addEventListener('click',()=>{
 <style id="category-tabs-style">
 .категория-вкладки{ширина: минимальная (100%, 720 пикселей); поле: 0 автоматически 18px;padding:5.5px;display:flex;align-items:center;justify-content:space-between;gap:3px;background:rgba(255,255,255,.94);border: 1px solid #ececf0; граница-радиус: 999px; поле-тень: 05px 18px rgba (18,28,50,.07); переполнение-x: автоматическое; ширина полосы прокрутки: отсутствует;}
 .category-tabs::-webkit-scrollbar{display:none}
-.category-tab{appearance:none;-webkit-appearance:none;flex:1 0 auto;min-width:64px;padding:13px 18.5px;border:0;border-radius:999px;background:transparent;color:#8a8a91;font:600 15px/1.2 inherit;font-family:inherit;cursor:pointer;white-space:nowrap;transition:background .18s,color .18s,box-shadow .18s}
-.category-tab:hover{color:#343746;background:#f7f7f9}
-.category-tab.active{background:#f0f1f4;color:#45464d;box-shadow:0 1px 4px rgba(0,0,0,.035)}
+.category-tab{внешний вид: нет;-webkit-внешний вид: нет; flex: 10 auto; минимальная ширина: 64px; отступ: 13px 18.5px; граница: 0; радиус границы: 999px; фон: прозрачный; цвет: #8a8a91;шрифт: 600 15px/1.2 inherit;семейство шрифтов: inherit;курсор:pointer; пробел: nowrap; переход: background .18s,color .18s,box-shadow .18s} 
+.вкладка категории: наведение курсора мыши{цвет: #343746; фон: #f7f7f9} 
+.категория-вкладка.активна{фон: #f0f1f4;цвет: #45464d; поле-тень: 0 1px 4px rgba(0,0,0,.035)}
 @media(max-width:600px){.category-tabs{justify-content:flex-start;margin-bottom:14px;padding:5.5px}.category-tab{min-width:auto;padding:13px 15.5px;font-size:13px}}
 </style>
 <script id="category-tabs-behavior">
@@ -1227,11 +1227,11 @@ document.getElementById('confirm-payment').addEventListener('click',()=>{
  const tabs=Array.from(document.querySelectorAll('.category-tab[data-category]'));
  const chips=Array.from(document.querySelectorAll('.platform-shortcuts .platform-chip'));
  if(!tabs.length)return;
- const groups={games:['p-fortnite','p-roblox'],services:['p-telegram','p-spotify','p-discord','p-ai','p-chatgpt','p-gemini','p-grok'],software:['p-ai','p-chatgpt','p-gemini','p-grok']};
+ постоянный groups={games:['p-fortnite','p-roblox'],services:['p-telegram','p-spotify','p-discord','p-ai','p-chatgpt','p-gemini','p-grok'],software:['p-ai','p-chatgpt','p-gemini','p-grok']};
  function apply(category){
-  const selected=groups[category]||null;
-  tabs.forEach(tab=>{
-   const active=tab.dataset.category===category;
+ const selected=groups[category]||null;
+ tabs.forEach(tab=>{
+ const active=tab.dataset.category===category;
  tab.classList.toggle('active',active);
  tab.setAttribute('aria-selected',String(active));
  });
@@ -1282,10 +1282,10 @@ document.getElementById('confirm-payment').addEventListener('click',()=>{
 
 
 <style id="v3eny-support-chat-style">
-#support-chat-launcher{position:fixed;right:22px;bottom:22px;z-index:9998;display:flex;align-items:center;gap:10px;border:0;border-radius:999px;padding:13px 18px;background:#171923;color:#fff;font:600 14px/1.2 inherit;font-family:inherit;box-shadow:0 12px 34px rgba(14,18,32,.24);cursor:pointer;transition:transform .2s,box-shadow .2s}
+#support-chat-launcher{position:fixed;right:22px;bottom:22px;z-index:9998;display:flex;align-items:center;gap:10px;border:0;border-radius:999px;padding: 13px 18px; фон: #171923;цвет: #fff; шрифт: 600 14px/1.2 inherit;семейство шрифтов:inherit; поле-тень: 0 12px 34px rgba(14,18,32,.24); курсор: указатель; переход: transform .2s,поле-тень .2s}
 #support-chat-launcher:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(14,18,32,.3)}
 #support-chat-launcher .support-chat-bubble{display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#fff;color:#171923;font-size:17px}
-#support-chat-panel{position:fixed;right:22px;bottom:86px;z-index:9999;width:min(370px,calc(100vw - 28px));height:min(510px,calc(100dvh - 120px));display:none;flex-direction:column;overflow:hidden;background:#fff;border:1px solid #e8eaf0;border-radius:20px;box-shadow:0 20px 70px rgba(15,23,42,.22);font-family:inherit;color:#191b24}
+#support-chat-panel{положение: исправлено; справа: 22px; внизу: 86px; z-индекс: 9999; ширина: минимальная (370px, calc (100vw - 28px)); высота: минимальная (510px, calc (100dvh - 120px)); отображение: отсутствует; направление изгиба: столбец; переполнение: скрыто; фон: #fff; граница: 1px сплошная #e8eaf0; радиус границы: 20px; поле-тень: 0 20px 70px rgba(15,23,42,.22); семейство шрифтов:inherit;цвет:#191b24}
 #support-chat-panel.open{display:flex;animation:supportChatIn .2s ease-out both}
 @keyframes supportChatIn{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
 #support-chat-header{display:flex;align-items:center;gap:11px;padding:17px 16px;background:#171923;color:#fff}
@@ -1311,34 +1311,33 @@ document.getElementById('confirm-payment').addEventListener('click',()=>{
 (()=>{
  const launcher=document.getElementById('support-chat-launcher'),panel=document.getElementById('support-chat-panel'),close=document.getElementById('support-chat-close'),messages=document.getElementById('support-chat-messages'),form=document.getElementById('support-chat-form'),input=document.getElementById('support-chat-input');
  if(!launcher||!panel||!messages||!form||!input)return;
- function openChat(){panel.classList.add('open');panel.setAttribute('aria-hidden','false');launcher.setAttribute('aria-expanded','true');setTimeout(()=>input.focus(),80)}
- function closeChat(){panel.classList.remove('open');panel.setAttribute('aria-hidden','true');launcher.setAttribute('aria-expanded','false');launcher.focus()}
- function addMessage(text,who){const node=document.createElement('div');node.className='support-chat-message '+who;node.textContent=text;messages.appendChild(node);messages.scrollTop=messages.scrollHeight}
- function send(text){const value=String(text||'').trim();if(!value)return;addMessage(value,'user');input.value='';input.style.height='auto';const lower=value.toLowerCase();let reply='Спасибо за сообщение! Сейчас это демонстрационный чат: оператор не подключён, поэтому сообщение не будет доставлено. Для реальной поддержки нужно подключить сервис чата.';if(lower.includes('оплат')||lower.includes('плат'))reply='По вопросам оплаты: проверьте выбранный товар и сумму перед оформлением. Это демо-чат — оператор пока не подключён, сообщение не будет доставлено.';else if(lower.includes('заказ')||lower.includes('оформ'))reply='Чтобы оформить заказ, откройте нужное приложение и нажмите «Подробнее». Учтите, что оформление и обработка заказов требуют подключения реального сервиса. Это демо-чат, оператор не подключён.';setTimeout(()=>addMessage(reply,'bot'),250)}
+ функция openChat(){panel.classList.add('open');panel.setAttribute('aria-hidden','false');launcher.setAttribute('aria-expanded','true');setTimeout(()=>input.focus(),80)} 
+ функция closeChat(){panel.classList.remove('open');panel.setAttribute('aria-hidden','true');launcher.setAttribute('aria-expanded','false');launcher.focus()} 
+ функция addMessage(text,who){const node=document.createElement('div');node.className='support-chat-message '+who;node.textContent=текст;messages.appendChild(узел);messages.scrollTop=messages.scrollHeight}
+ function send(text){const value=String(text||'').trim();if(!value)return;addMessage(value,'user');input.value='';input.style.height='auto';const lower=value.toLowerCase();let reply='Спасибо за сообщение! Сейчас это демонстрационный чат: оператор не подключен, поэтому сообщение не будет доставлено. Для реальной поддержки необходимо подключить сервис чата.';if(lower.includes('оплат')||lower.includes('плат'))reply='По вопросам оплаты: проверьте выбранный товар и сумму перед оформлением. Это демо-чат — оператор пока не подключен, сообщение не будет доставлено.';else if(lower.includes('заказ')||lower.includes('оформ'))reply='Чтобы оформить заказ, откройте нужное приложение и нажмите «Подробнее». Учтите, что оформление и обработка заказов требуют подключения реального сервиса. Это демо-чат, оператор не подключен.';setTimeout(()=>addMessage(reply,'bot'),250)}
  launcher.addEventListener('click',()=>panel.classList.contains('open')?closeChat():openChat());close.addEventListener('click',closeChat);
  form.addEventListener('submit',e=>{e.preventDefault();send(input.value)});
- document.querySelectorAll('[data-support-topic]').forEach(b=>b.addEventListener('click',()=>send(b.dataset.supportTopic)));
+ документ.querySelectorAll('[data-support-topic]').forEach(b=>b.addEventListener('click',()=>send(b.dataset.supportTopic)));
  input.addEventListener('input',()=>{input.style.height='auto';input.style.height=Math.min(input.scrollHeight,100)+'px'});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.classList.contains('open'))closeChat()});
 })();
 </script>
 
-
 <style id="v3eny-consistent-hover-effects">
 /* Единый эффект наведения для всех интерактивных элементов магазина. */
 :where(a, button, [role="button"], .card, .platform-chip, .feature-card, .trust-item, .category-tab, .nav-action, .brand):not(:disabled) {
-  transition: color .16s ease, background-color .16s ease, border-color .16s ease, box-shadow .16s ease, transform .16s ease, outline-color .16s ease;
+ transition: color .16s ease, background-color .16s ease, border-color .16s ease, box-shadow .16s ease, transform .16s ease, outline-color .16s ease;
 }
 :where(a, button, [role="button"], .card, .platform-chip, .feature-card, .trust-item, .category-tab, .nav-action, .brand):not(:disabled):hover {
-  outline: 2px solid rgba(120, 102, 237, .20);
-  outline-offset: 2px;
+ outline: 2px solid rgba(120, 102, 237, .20);
+ outline-offset: 2px;
 }
 :where(a, button, [role="button"], .card, .platform-chip, .feature-card, .trust-item, .category-tab, .nav-action, .brand):not(:disabled):focus-visible {
-  outline: 2px solid rgba(120, 102, 237, .58);
-  outline-offset: 3px;
+ outline: 2px solid rgba(120, 102, 237, .58);
+ outline-offset: 3px;
 }
 @media (prefers-reduced-motion: reduce) {
-  :where(a, button, [role="button"], .card, .platform-chip, .feature-card, .trust-item, .category-tab, .nav-action, .brand) { transition: none !important; }
+ :where(a, button, [role="button"], .card, .platform-chip, .feature-card, .trust-item, .category-tab, .nav-action, .brand) { transition: none !important; }
 }
 </style>
 
@@ -1346,13 +1345,13 @@ document.getElementById('confirm-payment').addEventListener('click',()=>{
 <style id="app-cards-no-square-hover">
 /* Убираем рамку при наведении только у карточек приложений. */
 #catalog .card:hover, #grid .card:hover, .grid .card:hover {
-  outline: none !important;
-  outline-offset: 0 !important;
-  border-color: var(--line) !important;
-  box-shadow: none !important;
+ outline: none !important;
+ outline-offset: 0 !important;
+ border-color: var(--line) !important;
+ box-shadow: none !important;
 }
 #catalog .card:focus-visible, #grid .card:focus-visible, .grid .card:focus-visible {
-  outline: none !important;
+ outline: none !important;
 }
 </style>
 
@@ -1361,129 +1360,128 @@ document.getElementById('confirm-payment').addEventListener('click',()=>{
 #catalog .card:hover, #catalog .card:hover *,
 #grid .card:hover, #grid .card:hover *,
 .grid .card:hover, .grid .card:hover * {
-  outline: 0 !important;
-  outline-offset: 0 !important;
+ outline: 0 !important;
+ outline-offset: 0 !important;
 }
 #catalog .card:hover, #grid .card:hover, .grid .card:hover {
-  border-color: inherit !important;
+ border-color: inherit !important;
 }
 </style>
 
 
 <script id="working-top-search">
 (function(){
-  const input = document.getElementById('search');
-  const cards = Array.from(document.querySelectorAll('#grid .card'));
-  const chips = Array.from(document.querySelectorAll('.platform-shortcuts .platform-chip'));
-  const empty = document.getElementById('empty');
-  if (!input) return;
-  function norm(v){ return String(v || '').toLocaleLowerCase('ru').replace(/ё/g, 'е').trim(); }
-  // Russian spellings users commonly type for English app names.
-  const aliases = {
-    'роблокс':'roblox', 'роблокс':'roblox',
-    'фортнайт':'fortnite', 'форнайт':'fortnite',
-    'спотифай':'spotify', 'спотифай':'spotify',
-    'телеграм':'telegram', 'телеграмм':'telegram',
-    'стим':'steam'
-  };
-  function expandedQuery(value){
-    const q = norm(value);
-    return aliases[q] || q;
-  }
-  function applySearch(){
-    const q = expandedQuery(input.value);
-    let visibleCards = 0;
-    cards.forEach(card => {
-      const rawHaystack = norm([
-        card.dataset.name,
-        card.dataset.title,
-        card.querySelector('h3')?.textContent,
-        card.textContent
-      ].join(' '));
-      const haystack = rawHaystack + ' ' + Object.entries(aliases)
-        .filter(([ru, en]) => rawHaystack.includes(en))
-        .map(([ru]) => ru).join(' ');
-      const matches = !q || haystack.includes(q);
-      card.style.setProperty('display', matches ? '' : 'none', 'important');
-      if(matches) visibleCards++;
-    });
-    chips.forEach(chip => {
-      const haystack = norm([
-        chip.dataset.jumpProduct,
-        chip.dataset.openProduct,
-        chip.getAttribute('aria-label'),
-        chip.querySelector('.platform-label')?.textContent
-      ].join(' '));
-      const expandedHaystack = haystack + ' ' + Object.entries(aliases)
-        .filter(([ru, en]) => haystack.includes(en))
-        .map(([ru]) => ru).join(' ');
-      const matches = !q || expandedHaystack.includes(q);
-      chip.hidden = !matches;
-      chip.style.setProperty('display', matches ? '' : 'none', 'important');
-    });
-    if (empty) {
-      empty.style.display = q && visibleCards === 0 ? 'block' : 'none';
-      if(q && visibleCards === 0) empty.textContent = 'Ничего не найдено';
-    }
-  }
-  input.addEventListener('input', applySearch);
-  document.querySelectorAll('.category-tab[data-category]').forEach(tab => {
-    tab.addEventListener('click', () => setTimeout(applySearch, 0));
-  });
-  applySearch();
+ const input = document.getElementById('search');
+ const cards = Array.from(document.querySelectorAll('#grid .card'));
+ const chips = Array.from(document.querySelectorAll('.platform-shortcuts .platform-chip'));
+ const empty = document.getElementById('empty');
+ if (!input) return;
+ function norm(v){ return String(v || '').toLocaleLowerCase('ru').replace(/ё/g, 'е').trim(); }
+ // Русские варианты написания, которые пользователи часто используют для названий англоязычных приложений.
+ постоянные псевдонимы = {
+ 'роблокс':'roblox', 'роблокс':'roblox',
+ 'фортнайт':'fortnite', 'форнайт':'fortnite',
+ 'спотифай':'spotify', 'спотифай':'spotify',
+ 'телеграм':'telegram', 'телеграмм':'telegram',
+ 'стим':'steam'
+ };
+ function expandedQuery(value){
+ const q = norm(value);
+ return aliases[q] || q;
+ }
+ function applySearch(){
+ const q = expandedQuery(input.value);
+ let visibleCards = 0;
+ cards.forEach(card => {
+ const rawHaystack = norm([
+ card.dataset.name,
+ card.dataset.title,
+ card.querySelector('h3')?.textContent,
+ card.textContent
+ ].join(' '));
+ const haystack = rawHaystack + ' ' + Object.entries(aliases)
+ .filter(([ru, en]) => rawHaystack.includes(en))
+ .map(([ru]) => ru).join(' ');
+ const matches = !q || haystack.includes(q);
+ card.style.setProperty('display', matches ? '' : 'none', 'important');
+ if(matches) visibleCards++;
+ });
+ chips.forEach(chip => {
+ const haystack = norm([
+ chip.dataset.jumpProduct,
+ chip.dataset.openProduct,
+ chip.getAttribute('aria-label'),
+ chip.querySelector('.platform-label')?.textContent
+ ].join(' '));
+ const expandedHaystack = haystack + ' ' + Object.entries(aliases)
+ .filter(([ru, en]) => haystack.includes(en))
+ .map(([ru]) => ru).join(' ');
+ const matches = !q || expandedHaystack.includes(q);
+ chip.hidden = !matches;
+ chip.style.setProperty('display', matches ? '' : 'none', 'important');
+ });
+ if (empty) {
+ empty.style.display = q && visibleCards === 0 ? 'block' : 'none';
+ if(q && visibleCards === 0) empty.textContent = 'Ничего не найдено';
+ }
+ }
+ input.addEventListener('input', applySearch);
+ документ.querySelectorAll('.category-tab[data-category]').forEach(tab => {
+ tab.addEventListener('click', () => setTimeout(applySearch, 0));
+ });
+ applySearch();
 })();
 </script>
 
-
 <script id="repair-catalog-category-filter">
 (function(){
-  const tabs=[...document.querySelectorAll('.category-tab[data-category]')];
-  const cards=[...document.querySelectorAll('#grid .card')];
-  const chips=[...document.querySelectorAll('.platform-shortcuts .platform-chip')];
-  const search=document.getElementById('search');
-  const empty=document.getElementById('empty');
-  let category='all';
-  const gameNames=['fortnite','roblox','gta','grand theft auto','brawl stars','clash royale','бравл старс','бравлстарс'];
-  const serviceNames=['spotify','telegram','apple','discord','дискорд'];
-  const consoleNames=['xbox','playstation','steam deck'];
-  const softwareNames=['steam','chatgpt','чатгпт','gemini','гемини','grok','грок'];
-  function nameOf(el){
-    return ((el.dataset.name||'')+' '+(el.dataset.title||'')+' '+(el.dataset.product||'')+' '+(el.textContent||'')+' '+(el.className||'')).toLocaleLowerCase('ru').replace(/ё/g,'е');
-  }
-  function isAllowed(el){
-    if(category==='all') return true;
-    const hay=nameOf(el);
-    const lists={games:gameNames,services:serviceNames,consoles:consoleNames,software:softwareNames};
-    return (lists[category]||[]).some(n=>hay.includes(n));
-  }
-  function apply(){
-    const q=(search?.value||'').toLocaleLowerCase('ru').replace(/ё/g,'е').trim();
-    const aliases={'роблокс':'roblox','фортнайт':'fortnite','форнайт':'fortnite','спотифай':'spotify','телеграм':'telegram','телеграмм':'telegram','стим':'steam','гта 6':'gta 6','гта':'gta','gta6':'gta 6','grand theft auto vi':'gta 6','бравл старс':'brawl stars','бравлстарс':'brawl stars','клэш рояль':'clash royale','клеш рояль':'clash royale'};
-    const query=aliases[q]||q;
-    let count=0;
-    function searchableName(el){
-      const hay=nameOf(el);
-      const russianAliases=Object.entries(aliases).filter(([ru,en])=>hay.includes(en)).map(([ru])=>ru).join(' ');
-      return hay+' '+russianAliases;
-    }
-    cards.forEach(el=>{
-      const hay=searchableName(el);
-      const matches=isAllowed(el)&&(!q||hay.includes(q)||hay.includes(query));
-      el.style.setProperty('display',matches?'':'none','important');
-      if(matches) count++;
-    });
-    chips.forEach(el=>{
-      const hay=searchableName(el);
-      const matches=isAllowed(el)&&(!q||hay.includes(q)||hay.includes(query));
-      el.hidden=!matches;
-      el.style.setProperty('display',matches?'':'none','important');
-    });
-    if(empty){empty.style.display=count?'none':'block';if(query||category!=='all')empty.textContent='В этой категории ничего не найдено';}
-    tabs.forEach(t=>{const active=t.dataset.category===category;t.classList.toggle('active',active);t.setAttribute('aria-selected',String(active));});
-  }
-  tabs.forEach(t=>t.addEventListener('click',()=>{category=t.dataset.category||'all';setTimeout(apply,0);setTimeout(apply,30);}));
-  if(search) search.addEventListener('input',()=>setTimeout(apply,0));
-  apply();
+ const tabs=[...document.querySelectorAll('.category-tab[data-category]')];
+ const cards=[...document.querySelectorAll('#grid .card')];
+ const chips=[...document.querySelectorAll('.platform-shortcuts .platform-chip')];
+ const search=document.getElementById('search');
+ const empty=document.getElementById('empty');
+ let category='all';
+ const gameNames=['fortnite','roblox','gta','grand theft auto','brawl stars','clash royale','бравл старс','бравлстарс'];
+ const serviceNames=['spotify','telegram','apple','discord','дискорд'];
+ const consoleNames=['xbox','playstation','steam deck'];
+ const softwareNames=['steam','chatgpt','чатгпт','gemini','гемини','grok','грок'];
+ function nameOf(el){
+ return ((el.dataset.name||'')+' '+(el.dataset.title||'')+' '+(el.dataset.product||'')+' '+(el.textContent||'')+' '+(el.className||'')).toLocaleLowerCase('ru').replace(/ё/g,'е');
+ }
+ function isAllowed(el){
+ if(category==='all') return true;
+ const hay=nameOf(el);
+ const lists={games:gameNames,services:serviceNames,consoles:consoleNames,software:softwareNames};
+ return (lists[category]||[]).some(n=>hay.includes(n));
+ }
+ function apply(){
+ const q=(search?.value||'').toLocaleLowerCase('ru').replace(/ё/g,'е').trim();
+ const aliases={'роблокс':'roblox','фортнайт':'fortnite','форнайт':'fortnite','спотифай':'spotify','телеграм':'telegram','телеграмм':'telegram','стим':'steam','гта 6':'gta 6','гта':'gta','gta6':'gta 6','grand theft auto vi':'gta 6','бравл старс':'brawl stars','бравлстарс':'brawl stars','клэш рояль':'clash royale','клеш рояль':'clash royale'};
+ постоянный запрос=псевдонимы[q]||q;
+ let count=0;
+ function searchableName(el){
+ const hay=nameOf(el);
+ const russianAliases=Object.entries(aliases).filter(([ru,en])=>hay.includes(en)).map(([ru])=>ru).join(' ');
+ return hay+' '+russianAliases;
+ }
+ cards.forEach(el=>{
+ const hay=searchableName(el);
+ const matches=isAllowed(el)&&(!q||hay.includes(q)||hay.includes(query));
+ el.style.setProperty('display',matches?'':'none','important');
+ if(matches) count++;
+ });
+ chips.forEach(el=>{
+ const hay=searchableName(el);
+ const matches=isAllowed(el)&&(!q||hay.includes(q)||hay.includes(query));
+ el.hidden=!matches;
+ el.style.setProperty('display',matches?'':'none','important');
+ });
+ if(empty){empty.style.display=count?'none':'block';if(query||category!=='all')empty.textContent='В этой категории ничего не найдено';}
+ tabs.forEach(t=>{const active=t.dataset.category===category;t.classList.toggle('active',active);t.setAttribute('aria-selected',String(active));});
+ }
+ tabs.forEach(t=>t.addEventListener('click',()=>{category=t.dataset.category||'all';setTimeout(apply,0);setTimeout(apply,30);}));
+ if(search) search.addEventListener('input',()=>setTimeout(apply,0));
+ apply();
 })();
 </script>
 
@@ -1491,100 +1489,99 @@ document.getElementById('confirm-payment').addEventListener('click',()=>{
 
 
 <style id="checkout-button-stable-color">
-/* Keep the checkout button dark and its text white in every interaction state. */
+/* Сохраняйте темный цвет кнопки оформления заказа и белый цвет ее текста при любом взаимодействии. */
 #cart-checkout.cart-checkout, #cart-checkout.cart-checkout:hover, #cart-checkout.cart-checkout:focus, #cart-checkout.cart-checkout:focus-visible, #cart-checkout.cart-checkout:active {
-  background: #171717 !important;
-  background-color: #171717 !important;
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  filter: none !important;
-  opacity: 1 !important;
-  transform: none !important;
-  box-shadow: none !important;
+ background: #171717 !important;
+ background-color: #171717 !important;
+ color: #ffffff !important;
+ -webkit-text-fill-color: #ffffff !important;
+ filter: none !important;
+ opacity: 1 !important;
+ transform: none !important;
+ box-shadow: none !important;
 }
 </style>
 
 
 <style id="iphone17-interaction-compatibility">
-/* iPhone/iOS Safari: keep native tap handling and prevent hover-state color changes. */
+/* iPhone/iOS Safari: сохранить встроенную обработку касаний и предотвратить изменение цвета при наведении. */
 html { -webkit-text-size-adjust: 100%; }
 button, [role="button"], a, input[type="submit"], input[type="button"], .card, .product-card {
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
+ -webkit-tap-highlight-color: transparent;
+ touch-action: manipulation;
 }
 button, input[type="submit"], input[type="button"] { -webkit-appearance: none; appearance: none; }
 button:not(:disabled), [role="button"], a { cursor: pointer; }
-/* Explicitly freeze important action buttons in their normal colors on touch/hover/focus. */
+/* Явно фиксируем важные кнопки действий в их обычных цветах при касании, наведении или фокусировке. */
 .account-submit, .account-switch, .account-eye, #cart-checkout, #add-to-cart,
-#confirm-payment, #steamBuy, #steam-buy, #support-send, #support-form button,
-#v3eny-support-chat button, .support-chat button, .modal-actions button,
+#confirm-payment, #steamBuy, #steam-buy, #support-send, кнопка #support-form,
+#v3eny-support-chat, кнопка, .support-chat, кнопка, .modal-actions, кнопка,
 .primary, .secondary, .hero-button, .steam-buy-button, .nav-action, .open-btn,
 .filter, .category-tab {
-  transition-property: none !important;
-  filter: none !important;
-  -webkit-tap-highlight-color: transparent !important;
+ transition-property: none !important;
+ filter: none !important;
+ -webkit-tap-highlight-color: transparent !important;
 }
 .account-submit, #cart-checkout, #add-to-cart, #confirm-payment,
 #support-send, #support-form button, #v3eny-support-chat button[type="submit"],
 .support-chat button[type="submit"], .primary {
-  background-color: #080824 !important;
-  color: #fff !important;
+ background-color: #080824 !important;
+ color: #fff !important;
 }
 .account-switch, .secondary { background-color: #fff !important; color: #626262 !important; }
-.account-submit:hover, .account-submit:active, .account-submit:focus,
-#cart-checkout:hover, #cart-checkout:active, #cart-checkout:focus,
-#add-to-cart:hover, #add-to-cart:active, #add-to-cart:focus,
-#confirm-payment:hover, #confirm-payment:active, #confirm-payment:focus,
-#support-send:hover, #support-send:active, #support-send:focus,
-#support-form button:hover, #support-form button:active, #support-form button:focus,
+.учетная запись-отправить: наведите курсор, .учетная запись-отправить: активна, .учетная запись-отправить: фокус, 
+#корзина-оформить заказ: наведите курсор, #корзина-оформить заказ: активна, #корзина-оформить заказ: фокус, 
+#добавить в корзину: наведите курсор, #добавить в корзину: активен, #добавить в корзину: в центре внимания, 
+#подтвердить платеж: наведите курсор, #подтвердить платеж: активен, #подтвердить платеж: в центре внимания, 
+#поддержка-отправка: наведите курсор, #поддержка-отправка: активна, #поддержка-отправка: сосредоточена, 
+#поддержка-кнопка формы: наведена, #поддержка-кнопка формы: активна, #поддержка-кнопка формы: сосредоточена,
 #v3eny-support-chat button[type="submit"]:hover, #v3eny-support-chat button[type="submit"]:active,
 #v3eny-support-chat button[type="submit"]:focus, .primary:hover, .primary:active, .primary:focus {
-  background-color: #080824 !important; color: #fff !important; filter: none !important; opacity: 1 !important;
+ background-color: #080824 !important; color: #fff !important; filter: none !important; opacity: 1 !important;
 }
 .account-switch:hover, .account-switch:active, .account-switch:focus,
 .secondary:hover, .secondary:active, .secondary:focus {
-  background-color: #fff !important; color: #626262 !important; filter: none !important; opacity: 1 !important;
+ background-color: #fff !important; color: #626262 !important; filter: none !important; opacity: 1 !important;
 }
 @media (hover: none) and (pointer: coarse) {
-  button:hover, a:hover, [role="button"]:hover { filter: none !important; }
+ button:hover, a:hover, [role="button"]:hover { filter: none !important; }
 }
 </style>
 <script id="iphone17-safe-interactions">
 (function(){
-  // Make controls reliably tappable in iOS Safari without suppressing native click events.
-  function prepare(){
-    document.querySelectorAll('button, [role="button"], a, input[type="submit"], input[type="button"]').forEach(function(el){
-      el.style.webkitTapHighlightColor='transparent';
-      if(!el.disabled) el.style.touchAction='manipulation';
-      if(el.tagName==='BUTTON' && !el.hasAttribute('type') && el.closest('form')) el.type='button';
-    });
-    document.querySelectorAll('form').forEach(function(form){
-      form.style.touchAction='manipulation';
-    });
-  }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',prepare,{once:true}); else prepare();
+ // Сделать элементы управления надежными для нажатия в iOS Safari, не подавляя нативные события клика.
+ function prepare(){
+ document.querySelectorAll('button, [role="button"], a, input[type="submit"], input[type="button"]').forEach(function(el){
+ el.style.webkitTapHighlightColor='transparent';
+ if(!el.disabled) el.style.touchAction='manipulation';
+ if(el.tagName==='BUTTON' && !el.hasAttribute('type') && el.closest('form')) el.type='button';
+ });
+ document.querySelectorAll('form').forEach(function(form){
+ form.style.touchAction='manipulation';
+ });
+ }
+ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',prepare,{once:true}); else prepare();
 })();
 </script>
 
-
 <style id="gta6-card-style">
-.art.gta6{display:flex;align-items:center;justify-content:center;min-height:180px;background:radial-gradient(circle at 50% 20%,#f8c76b 0,#d36b3c 35%,#552c49 72%,#151923 100%);padding:18px;box-sizing:border-box}.gta6-logo{display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;text-shadow:0 3px 0 #111,0 0 12px #000;font-family:Impact,'Arial Black',sans-serif;transform:rotate(-3deg);line-height:.9}.gta6-logo span{font-size:14px;letter-spacing:2px}.gta6-logo strong{font-size:48px;letter-spacing:-2px;-webkit-text-stroke:1px #171717}.gta6-logo b{font-size:38px;color:#8ee0b1;letter-spacing:2px;-webkit-text-stroke:1px #111}.art.gta6:after{content:'VICE CITY';position:absolute;bottom:10px;color:#fff;font-size:10px;font-weight:900;letter-spacing:4px;text-shadow:0 2px 4px #000}
+.art.gta6{display:flex;align-items:center;justify-content:center;min-height:180px;background:radial-gradient( обведите на 50% 20%, #f8c76b 0,#d36b3c 35%, #552c49 72%, #151923 100%);padding:18px;box-sizing:border-box}.gta6-logo{display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;text-shadow: 0 3px 0 #111,0 0 12px # 000; семейство шрифтов: Impact, 'Arial Black', без засечек; преобразование: поворот (-3deg); высота строки: .9}.gta6-диапазон логотипа{размер шрифта: 14 пикселей; интервал между буквами: 2 пикселя}.gta6-сильный логотип {размер шрифта: 48 пикселей; интервал между буквами:-2 пикселя; -webkit-обводка текста: 1 пиксель #171717}.gta6-логотип b {шрифт -размер: 38 пикселей; цвет: #8ee0b1; интервал между буквами: 2 пикселя;-webkit-текст-обводка: 1 пиксель #111}.art.gta6:after{содержимое:'НАОБОРОТ CITY';position:absolute;bottom:10px;color:#fff;font-size:10px;font-weight:900;letter-spacing:4px;text-shadow: 0 2px 4px #000}
 </style>
 
 
 <style id="gta6-app-shortcut-style">
-.platform-chip.p-gta6 .gta6-shortcut-glyph{background:linear-gradient(145deg,#f5b5a0,#d96bb4 52%,#283d92)!important;color:#fff!important;font-family:Arial,sans-serif;font-weight:950;font-size:22px;letter-spacing:-1px;text-shadow:0 2px 5px #17204488;display:grid;place-items:center;border:1px solid #ffffff55;box-shadow:0 7px 16px #8d3d8b22!important}
-.platform-chip.p-gta6 .gta6-shortcut-glyph span{display:block;transform:rotate(-7deg)}
+.платформа-чип.p-gta6 .gta6-ярлык-глиф{фон: линейно-градиентный (145 градусов, #f5b5a0, #d96bb4 52%,#283d92)!important;color:#fff!important;font-family:Arial,sans-serif;font-weight:950;font-size:22px;letter-spacing:-1px;text-shadow: 0 2px 5px #17204488; отображение: сетка; размещение элементов: по центру; граница: 1px сплошная #ffffff55;поле-тень: 0 7px 16px #8d3d8b22!важно} 
+.platform-chip.p-gta6 .gta6-ярлык-диапазон символов {отображение: блок; преобразование: поворот (-7 градусов)}
 @media(max-width:650px){.platform-shortcuts{gap:12px!important;padding-left:8px!important;padding-right:8px!important}.platform-chip{min-width:64px!important}.platform-glyph{width:56px!important;height:56px!important}}
 </style>
 
 <style id="remove-gta6-frames-final">
-/* Remove decorative frames specifically from GTA 6 card and shortcut icon. */
+/* Убрать декоративные рамки, в частности, с карточки GTA 6 и значка ярлыка. */
 .card:has(.art.gta6), .card:has(.art.gta6)::before, .card:has(.art.gta6)::after,
 .art.gta6, .art.gta6::before, .art.gta6::after,
 .platform-chip.p-gta6, .platform-chip.p-gta6 .gta6-shortcut-glyph,
 .platform-chip.p-gta6 .gta6-shortcut-glyph img {
-  border: 0 !important; outline: 0 !important; box-shadow: none !important;
+ border: 0 !important; outline: 0 !important; box-shadow: none !important;
 }
 .card:has(.art.gta6) { outline: 0 !important; }
 </style>
@@ -1598,27 +1595,27 @@ button:not(:disabled), [role="button"], a { cursor: pointer; }
 </style>
 
 <style id="category-filter-no-flash-fix">
-/* Prevent stale category contents from flashing while switching tabs. */
+/* Предотвращает мигание устаревшего содержимого категорий при переключении вкладок. */
 #grid .card, .platform-shortcuts .platform-chip { transition: none !important; animation: none !important; }
 </style>
 
 
 
 <style id="igram-inspired-motion">
-/* Smooth premium storefront motion inspired by the reference site's lively presentation. */
+/* Плавное движение витрины премиум-класса, вдохновленное динамичной презентацией на сайте-образце. */
 @keyframes v3enyHeroEnter { from { opacity:0; transform:translateY(22px) scale(.985); filter:blur(5px) } to { opacity:1; transform:translateY(0) scale(1); filter:blur(0) } }
 @keyframes v3enyTextEnter { from { opacity:0; transform:translateY(13px) } to { opacity:1; transform:translateY(0) } }
 @keyframes v3enyGlowDrift { 0%,100% { transform:translate3d(0,0,0) scale(1) } 50% { transform:translate3d(-14px,12px,0) scale(1.06) } }
 @keyframes v3enyCardReveal { from { opacity:0; transform:translateY(18px) scale(.985) } to { opacity:1; transform:translateY(0) scale(1) } }
-.hero-box { animation:v3enyHeroEnter .72s cubic-bezier(.2,.75,.25,1) both; }
-.hero .eyebrow { animation:v3enyTextEnter .55s .12s both; }
-.hero h1 { animation:v3enyTextEnter .62s .2s both; }
-.hero p { animation:v3enyTextEnter .62s .28s both; }
-.hero .hero-button { animation:v3enyTextEnter .62s .36s both; }
-.hero-box:after { animation:v3enyGlowDrift 8s ease-in-out infinite; }
-.motion-reveal { opacity:0; transform:translateY(18px); }
-.motion-reveal.motion-visible { animation:v3enyCardReveal .58s cubic-bezier(.2,.75,.25,1) both; }
-.section-head.motion-reveal.motion-visible { animation:v3enyTextEnter .55s cubic-bezier(.2,.75,.25,1) both; }
+.hero-box { анимация: v3enyHeroEnter .72s кубический-безье(.2,.75,.25,1) оба; } 
+.hero .eyebrow { анимация: v3enyTextEnter .55s .12s обе; } 
+.hero h1 { анимация: v3enyTextEnter .62s .2s обе; } 
+.hero p { анимация: v3enyTextEnter .62s .28s обе; } 
+.hero .hero-button { анимация: v3enyTextEnter .62s .36s обе; } 
+.hero-box:после { анимация: v3enyGlowDrift 8s ease-in-out infinite; } 
+.motion-выявить { непрозрачность:0; преобразовать: translateY(18 пикселей); } 
+.motion-показать.motion-видимый { анимация: v3enyCardReveal .58s кубический-безье(.2,.75,.25,1) оба; } 
+.section-head.motion-показать.motion-видимый { анимация: v3enyTextEnter .55s кубический-безье (.2,.75,.25,1) оба; }
 @media (max-width:700px) {
  .hero-box { animation-duration:.58s; }
  .hero-box:after { animation-duration:10s; }
@@ -1631,51 +1628,50 @@ button:not(:disabled), [role="button"], a { cursor: pointer; }
 </style>
 <script id="igram-inspired-motion-behavior">
 (function(){
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const selectors = ['main section', 'section', '.section-head', '.platform-shortcuts .platform-chip', '#grid .card', '.grid .card', '#catalog .card', '.product-card'];
-  const nodes = Array.from(document.querySelectorAll(selectors.join(',')));
-  const unique = Array.from(new Set(nodes)).filter(el => !el.closest('.hero'));
-  if (!('IntersectionObserver' in window)) {
-    unique.forEach(el => el.classList.add('motion-visible'));
-    return;
-  }
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
-      el.classList.add('motion-reveal');
-      el.style.animationDelay = Math.min(Number(el.dataset.motionIndex || 0) * 45, 270) + 'ms';
-      requestAnimationFrame(() => el.classList.add('motion-visible'));
-      observer.unobserve(el);
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -35px 0px' });
-  unique.forEach((el, i) => { el.dataset.motionIndex = String(i % 7); observer.observe(el); });
+ if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+ const selectors = ['main section', 'section', '.section-head', '.platform-shortcuts .platform-chip', '#grid .card', '.grid .card', '#catalog .card', '.product-card'];
+ const nodes = Array.from(document.querySelectorAll(selectors.join(',')));
+ const unique = Array.from(new Set(nodes)).filter(el => !el.closest('.hero'));
+ if (!('IntersectionObserver' in window)) {
+ уникальный.forEach(el => el.classList.add('motion-visible'));
+ return;
+ }
+ const observer = new IntersectionObserver((entries) => {
+ entries.forEach(entry => {
+ if (!entry.isIntersecting) return;
+ const el = entry.target;
+ el.classList.add('motion-reveal');
+ el.style.animationDelay = Math.min(Number(el.dataset.motionIndex || 0) * 45, 270) + 'ms';
+ requestAnimationFrame(() => el.classList.add('motion-visible'));
+ observer.unobserve(el);
+ });
+ }, { threshold: 0.08, rootMargin: '0px 0px -35px 0px' });
+ уникальный.forEach((el, i) => { el.dataset.motionIndex = String(i % 7); observer.observe(el); });
 })();
 </script>
 
-
 <style id="fix-hidden-icons-after-motion">
-/* Safety fallback: never leave catalog items transparent if another animation rule cancels the reveal. */
+/* Безопасный запасной вариант: никогда не оставляйте элементы каталога прозрачными, если другое правило анимации отменяет их отображение. */
 #grid .card.motion-reveal:not(.motion-visible), .grid .card.motion-reveal:not(.motion-visible), #catalog .card.motion-reveal:not(.motion-visible), .platform-shortcuts .platform-chip.motion-reveal:not(.motion-visible), .motion-reveal:not(.motion-visible) { opacity: 1 !important; transform: none !important; filter: none !important; }
 #grid .card.motion-reveal.motion-visible, .grid .card.motion-reveal.motion-visible, #catalog .card.motion-reveal.motion-visible, .platform-shortcuts .platform-chip.motion-reveal.motion-visible { opacity: 1 !important; }
 </style>
 
 <style id="smaller-main-frames-v2">
-/* Compact the large white frames themselves, without shrinking the app icons. */
+/* Уменьшаем сами большие белые рамки, не уменьшая значки приложений. */
 @media (min-width: 651px) {
-  main > section.wrap.steam-topup-hero,
-  main > section.wrap#catalog,
-  main > section.wrap:not(.steam-topup-hero):not(#catalog) {
-    max-width: 790px !important;
-  }
-  main > section.wrap.steam-topup-hero { width: calc(100% - 32px) !important; padding-top: 10px !important; padding-bottom: 12px !important; }
-  .telegram-promo-banner { padding: 22px 28px !important; min-height: 0 !important; border-radius: 22px !important; gap: 20px !important; }
-  .steam-topup-card, .steam-topup-panel, .steam-topup-box { padding: 18px 20px !important; border-radius: 22px !important; }
-  #catalog { width: calc(100% - 32px) !important; padding: 20px 20px 34px !important; border-radius: 30px 30px 0 0 !important; margin-top: 14px !important; }
+ main > section.wrap.steam-topup-hero,
+ main > section.wrap#catalog,
+ main > section.wrap:not(.steam-topup-hero):not(#catalog) {
+ max-width: 790px !important;
+ }
+ main > section.wrap.steam-topup-hero { width: calc(100% - 32px) !important; padding-top: 10px !important; padding-bottom: 12px !important; }
+ .telegram-promo-banner { padding: 22px 28px !important; min-height: 0 !important; border-radius: 22px !important; gap: 20px !important; }
+ .steam-topup-card, .steam-topup-panel, .steam-topup-box { padding: 18px 20px !important; border-radius: 22px !important; }
+ #catalog { width: calc(100% - 32px) !important; padding: 20px 20px 34px !important; border-radius: 30px 30px 0 0 !important; margin-top: 14px !important; }
 }
 @media (max-width: 650px) {
-  .telegram-promo-banner { padding: 20px !important; border-radius: 20px !important; gap: 14px !important; }
-  #catalog { padding: 18px 12px 28px !important; border-radius: 26px 26px 0 0 !important; }
+ .telegram-promo-banner { padding: 20px !important; border-radius: 20px !important; gap: 14px !important; }
+ #catalog { padding: 18px 12px 28px !important; border-radius: 26px 26px 0 0 !important; }
 }
 </style>
 
@@ -1686,48 +1682,48 @@ button:not(:disabled), [role="button"], a { cursor: pointer; }
 .category-tabs .category-tab, .category-tabs .category-tab.active,
 #grid .card.category-switch-in, .grid .card.category-switch-in,
 #catalog .card.category-switch-in, .platform-shortcuts .platform-chip.category-switch-in {
-  animation: none !important; transition: none !important;
+ animation: none !important; transition: none !important;
 }
 #grid .card, .grid .card, #catalog .card, .platform-shortcuts .platform-chip {
-  will-change: auto !important;
+ will-change: auto !important;
 }
 </style>
 <script id="stable-category-switch-final-js">
 (function(){
-  const tabs=[...document.querySelectorAll('.category-tab[data-category]')];
-  tabs.forEach(tab=>tab.addEventListener('click',()=>{
-    document.querySelectorAll('.category-switch-in').forEach(el=>el.classList.remove('category-switch-in'));
-  }));
+ const tabs=[...document.querySelectorAll('.category-tab[data-category]')];
+ tabs.forEach(tab=>tab.addEventListener('click',()=>{
+ документ.querySelectorAll('.category-switch-in').forEach(el=>el.classList.remove('category-switch-in'));
+ }));
 })();
 </script>
 
 
 <style id="mobile-button-compatibility">
-  @media (max-width: 760px) {
-    button, [role="button"], .feature-card, .platform-chip, .category-tab {
-      touch-action: manipulation !important;
-      -webkit-tap-highlight-color: transparent;
-      pointer-events: auto;
-    }
-    .modal-backdrop, .account-backdrop, .cart-panel-backdrop {
-      -webkit-overflow-scrolling: touch;
-    }
-    .modal, .account-panel, .cart-panel {
-      overscroll-behavior: contain;
-      max-height: 90dvh;
-      overflow-y: auto;
-    }
-  }
+ @media (max-width: 760px) {
+ button, [role="button"], .feature-card, .platform-chip, .category-tab {
+ touch-action: manipulation !important;
+ -webkit-tap-highlight-color: transparent;
+ pointer-events: auto;
+ }
+ .modal-backdrop, .account-backdrop, .cart-panel-backdrop {
+ -webkit-overflow-scrolling: touch;
+ }
+ .modal, .account-panel, .cart-panel {
+ overscroll-behavior: contain;
+ max-height: 90dvh;
+ overflow-y: auto;
+ }
+ }
 </style>
 <script id="mobile-button-compatibility-js">
 (function () {
-  // Only repair buttons with no explicit type inside forms; don't replace click
-  // handlers or synthesize extra clicks, which can submit an order twice.
-  document.querySelectorAll('button:not([type])').forEach(function (button) {
-    button.type = 'button';
-  });
-  // Keep the browser's native click path; prevent horizontal page overflow on phones.
-  document.documentElement.style.setProperty('overflow-x', 'clip');
+ // Исправить только кнопки без явного указания типа внутри форм; не заменять обработчики кликов
+ // и не добавлять дополнительные клики, которые могут привести к повторной отправке заказа.
+ документ.querySelectorAll('button:not([type])').forEach(function (button) {
+ button.type = 'button';
+ });
+ // Сохраняем нативный путь клика в браузере; предотвращаем горизонтальное переполнение страницы на телефонах.
+ document.documentElement.style.setProperty('overflow-x', 'clip');
 })();
 </script>
 
@@ -1735,44 +1731,44 @@ button:not(:disabled), [role="button"], a { cursor: pointer; }
 
 
 <style id="v3eny-support-chat-header-placement">
-/* Support stays in the top navigation beside Login and Cart. */
+/* Поддержка остается в верхней части навигации рядом с кнопками «Войти» и «Корзина». */
 #support-chat-launcher{
-  position:static!important; right:auto!important; bottom:auto!important; z-index:auto!important;
-  display:inline-flex; flex:0 0 auto; align-items:center; justify-content:center; gap:7px;
-  min-height:44px; padding:9px 12px; border:1px solid var(--line, #e5e7eb); border-radius:12px;
-  background:var(--panel, #fff); color:var(--text, #191b24); font:inherit; font-size:13px; font-weight:750;
-  box-shadow:none; white-space:nowrap; transition:transform .16s ease,background .16s ease,border-color .16s ease;
+ position:static!important; right:auto!important; bottom:auto!important; z-index:auto!important;
+ display:inline-flex; flex:0 0 auto; align-items:center; justify-content:center; gap:7px;
+ min-height:44px; padding:9px 12px; border:1px solid var(--line, #e5e7eb); border-radius:12px;
+ background:var(--panel, #fff); color:var(--text, #191b24); font:inherit; font-size:13px; font-weight:750;
+ box-shadow:none; white-space:nowrap; transition:transform .16s ease,background .16s ease,border-color .16s ease;
 }
 #support-chat-launcher:hover{transform:translateY(-1px);background:#f2efff;color:var(--text, #191b24);border-color:#c9c0ff;box-shadow:none}
 #support-chat-launcher:active{transform:scale(.96)}
 #support-chat-launcher .support-chat-bubble{width:20px;height:20px;flex:0 0 20px;background:transparent;color:currentColor;font-size:17px}
 @media(max-width:760px){
-  #support-chat-launcher{gap:4px;min-height:40px;padding:7px 8px;font-size:12px}
-  #support-chat-launcher .support-chat-bubble{width:17px;height:17px;flex-basis:17px;font-size:15px}
+ #support-chat-launcher{gap:4px;min-height:40px;padding:7px 8px;font-size:12px}
+ #support-chat-launcher .support-chat-bubble{width:17px;height:17px;flex-basis:17px;font-size:15px}
 }
 </style>
 
 <style id="v3eny-support-chat-icon-label-style">
-/* Match the account control: a simple outline icon with its label beside it. */
+/* Совпадение с элементом управления аккаунтом: простой значок в виде контура с подписью рядом. */
 #support-chat-launcher{
-  position:static!important; right:auto!important; bottom:auto!important; z-index:auto!important;
-  display:inline-flex!important; flex:0 0 auto; align-items:center; justify-content:center; gap:7px;
-  width:auto!important; min-width:0!important; height:44px!important; min-height:44px!important;
-  padding:8px 10px!important; margin:0; border:0!important; border-radius:12px!important;
-  background:transparent!important; color:#9296a2!important; box-shadow:none!important;
-  font:inherit; font-size:13px; font-weight:750; white-space:nowrap; cursor:pointer;
-  transition:transform .16s ease,color .16s ease;
+ position:static!important; right:auto!important; bottom:auto!important; z-index:auto!important;
+ display:inline-flex!important; flex:0 0 auto; align-items:center; justify-content:center; gap:7px;
+ width:auto!important; min-width:0!important; height:44px!important; min-height:44px!important;
+ padding:8px 10px!important; margin:0; border:0!important; border-radius:12px!important;
+ background:transparent!important; color:#9296a2!important; box-shadow:none!important;
+ font:inherit; font-size:13px; font-weight:750; white-space:nowrap; cursor:pointer;
+ transition:transform .16s ease,color .16s ease;
 }
 #support-chat-launcher:hover{transform:translateY(-1px);background:transparent!important;color:var(--text,#191b24)!important;border-color:transparent!important;box-shadow:none!important}
 #support-chat-launcher:active{transform:scale(.96)}
 #support-chat-launcher .support-chat-bubble{
-  display:block; width:20px!important; height:20px!important; flex:0 0 20px;
-  padding:0; border:0; border-radius:0; background:transparent!important; color:currentColor!important;
-  fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;
+ display:block; width:20px!important; height:20px!important; flex:0 0 20px;
+ padding:0; border:0; border-radius:0; background:transparent!important; color:currentColor!important;
+ fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;
 }
 @media(max-width:760px){
-  #support-chat-launcher{gap:5px;min-height:40px!important;height:40px!important;padding:6px 4px!important;font-size:12px}
-  #support-chat-launcher .support-chat-bubble{width:19px!important;height:19px!important;flex-basis:19px}
+ #support-chat-launcher{gap:5px;min-height:40px!important;height:40px!important;padding:6px 4px!important;font-size:12px}
+ #support-chat-launcher .support-chat-bubble{width:19px!important;height:19px!important;flex-basis:19px}
 }
 @media(prefers-reduced-motion:reduce){#support-chat-launcher{transition:none}}
 </style>
@@ -1781,7 +1777,7 @@ button:not(:disabled), [role="button"], a { cursor: pointer; }
 /* Убираем квадратный контур и мобильную подсветку при наведении/выборе приложения. */
 #grid .card, #catalog .card, .grid .card,
 #grid .card *, #catalog .card *, .grid .card * {
-  -webkit-tap-highlight-color: transparent !important;
+ -webkit-tap-highlight-color: transparent !important;
 }
 #grid .card:hover, #grid .card:active, #grid .card:focus, #grid .card:focus-visible,
 #catalog .card:hover, #catalog .card:active, #catalog .card:focus, #catalog .card:focus-visible,
@@ -1789,59 +1785,59 @@ button:not(:disabled), [role="button"], a { cursor: pointer; }
 #grid .card:hover *, #grid .card:active *, #grid .card:focus *, #grid .card:focus-visible *,
 #catalog .card:hover *, #catalog .card:active *, #catalog .card:focus *, #catalog .card:focus-visible *,
 .grid .card:hover *, .grid .card:active *, .grid .card:focus *, .grid .card:focus-visible * {
-  outline: none !important;
-  outline-offset: 0 !important;
+ outline: none !important;
+ outline-offset: 0 !important;
 }
 #grid .card:focus, #grid .card:focus-visible, #grid .card:active,
 #catalog .card:focus, #catalog .card:focus-visible, #catalog .card:active,
 .grid .card:focus, .grid .card:focus-visible, .grid .card:active {
-  border-color: transparent !important;
-  box-shadow: none !important;
+ border-color: transparent !important;
+ box-shadow: none !important;
 }
 </style>
 
 
 <style id="v3eny-disable-all-hover-effects">
-/* Отключаем любые визуальные эффекты наведения мыши по всему сайту. */
+/* Отключаем все визуальные эффекты при наведении курсора мыши на любой элемент сайта. */
 @media (hover: hover) {
-  *:hover {
-    transform: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-    filter: none !important;
-    text-shadow: none !important;
-    transition: none !important;
-  }
-  a:hover, button:hover, [role="button"]:hover,
-  .card:hover, .platform-chip:hover, .feature-card:hover,
-  .trust-item:hover, .category-tab:hover, .nav-action:hover,
-  .brand:hover, .filter:hover, .open-btn:hover,
-  .variant-option:hover, .steam-buy-button:hover,
-  .hero-button:hover, .account-trigger:hover,
-  .nav-cart-trigger:hover, #support-chat-launcher:hover {
-    background: inherit !important;
-    color: inherit !important;
-    border-color: inherit !important;
-    outline: none !important;
-    transform: none !important;
-    box-shadow: none !important;
-    filter: none !important;
-  }
+ *:hover {
+ transform: none !important;
+ box-shadow: none !important;
+ outline: none !important;
+ filter: none !important;
+ text-shadow: none !important;
+ transition: none !important;
+ }
+ a:hover, button:hover, [role="button"]:hover,
+ .card:hover, .platform-chip:hover, .feature-card:hover,
+ .trust-item:hover, .category-tab:hover, .nav-action:hover,
+ .brand:hover, .filter:hover, .open-btn:hover,
+ .variant-option:hover, .steam-buy-button:hover,
+ .hero-button:hover, .account-trigger:hover,
+ .nav-cart-trigger:hover, #support-chat-launcher:hover {
+ background: inherit !important;
+ color: inherit !important;
+ border-color: inherit !important;
+ outline: none !important;
+ transform: none !important;
+ box-shadow: none !important;
+ filter: none !important;
+ }
 }
 </style>
 
 <style id="steam-buy-button-hover-color-fix">
-/* Кнопка пополнения Steam сохраняет исходный тёмный цвет при наведении. */
+/* Кнопка пополнения Steam сохраняет исходный темный цвет при наведении. */
 .steam-buy-button:hover,
 .steam-buy-button:focus,
 .steam-buy-button:focus-visible {
-  background: #090a2d !important;
-  color: #ffffff !important;
-  border-color: transparent !important;
-  outline: none !important;
-  box-shadow: none !important;
-  filter: none !important;
-  transform: none !important;
+ background: #090a2d !important;
+ color: #ffffff !important;
+ border-color: transparent !important;
+ outline: none !important;
+ box-shadow: none !important;
+ filter: none !important;
+ transform: none !important;
 }
 </style>
 
@@ -1853,27 +1849,27 @@ button:not(:disabled), [role="button"], a { cursor: pointer; }
 .account-password-wrap .account-eye:focus,
 .account-password-wrap .account-eye:focus-visible,
 .account-password-wrap .account-eye:active {
-  position: absolute !important;
-  right: 10px !important;
-  top: 50% !important;
-  left: auto !important;
-  bottom: auto !important;
-  transform: translateY(-50%) !important;
-  margin: 0 !important;
-  translate: none !important;
-  scale: 1 !important;
-  rotate: 0deg !important;
-  animation: none !important;
-  transition: none !important;
-  background: transparent !important;
-  border: 0 !important;
-  outline: none !important;
-  box-shadow: none !important;
+ position: absolute !important;
+ right: 10px !important;
+ top: 50% !important;
+ left: auto !important;
+ bottom: auto !important;
+ transform: translateY(-50%) !important;
+ margin: 0 !important;
+ translate: none !important;
+ scale: 1 !important;
+ rotate: 0deg !important;
+ animation: none !important;
+ transition: none !important;
+ background: transparent !important;
+ border: 0 !important;
+ outline: none !important;
+ box-shadow: none !important;
 }
 </style>
 
 <style id="final-fix-login-register-and-support-send-colors">
-/* Keep the login and registration buttons dark in every interaction state. */
+/* Кнопки входа и регистрации должны оставаться темными при любом взаимодействии. */
 .account-submit,
 .account-submit:hover,
 .account-submit:focus,
@@ -1881,16 +1877,16 @@ button:not(:disabled), [role="button"], a { cursor: pointer; }
 .account-submit:active,
 .account-form .account-submit:hover,
 .account-form .account-submit:focus-visible {
-  background: #030321 !important;
-  background-color: #030321 !important;
-  color: #ffffff !important;
-  border-color: #030321 !important;
-  filter: none !important;
-  opacity: 1 !important;
-  box-shadow: none !important;
-  transform: none !important;
+ background: #030321 !important;
+ background-color: #030321 !important;
+ color: #ffffff !important;
+ border-color: #030321 !important;
+ filter: none !important;
+ opacity: 1 !important;
+ box-shadow: none !important;
+ transform: none !important;
 }
-/* Keep the support chat send button dark when sending a message. */
+/* При отправке сообщения кнопка отправки в чате поддержки должна оставаться темной. */
 #support-chat-send,
 #support-chat-send:hover,
 #support-chat-send:focus,
@@ -1900,74 +1896,74 @@ button:not(:disabled), [role="button"], a { cursor: pointer; }
 #support-chat-form button[type="submit"]:hover,
 #support-chat-form button[type="submit"]:focus-visible,
 #support-chat-form button[type="submit"]:active {
-  background: #171923 !important;
-  background-color: #171923 !important;
-  color: #ffffff !important;
-  border-color: #171923 !important;
-  filter: none !important;
-  opacity: 1 !important;
-  box-shadow: none !important;
-  transform: none !important;
+ background: #171923 !important;
+ background-color: #171923 !important;
+ color: #ffffff !important;
+ border-color: #171923 !important;
+ filter: none !important;
+ opacity: 1 !important;
+ box-shadow: none !important;
+ transform: none !important;
 }
 </style>
 
 
 <style id="category-animation-stability-fix">
-/* Stabilize category switching on desktop and iPhone: no competing pop/entry animations. */
+/* Стабилизация переключения категорий на компьютере и iPhone: отсутствие конкурирующих анимаций появления и входа. */
 .category-tabs .category-tab,
 .category-tabs .category-tab.active,
 .category-tabs .category-tab:active,
 .category-tabs .category-tab:hover,
 .category-tabs .category-tab:focus,
 .category-tabs .category-tab:focus-visible {
-  animation: none !important;
-  transform: none !important;
-  transition: background-color .18s ease, color .18s ease, box-shadow .18s ease !important;
-  -webkit-tap-highlight-color: transparent;
+ animation: none !important;
+ transform: none !important;
+ transition: background-color .18s ease, color .18s ease, box-shadow .18s ease !important;
+ -webkit-tap-highlight-color: transparent;
 }
 .category-tabs .category-tab.active { background-color: #f0f1f4 !important; color: #45464d !important; }
 @media (prefers-reduced-motion: reduce) { .category-tabs .category-tab { transition: none !important; } }
 </style>
 
 <style id="gentle-app-icon-lift">
-/* Лёгкое «выплывание» иконки при наведении мышью; на телефоне — при касании. */
+/* Легкое «выплывание» иконки при наведении курсора мыши; на телефоне — при касании. */
 .platform-chip img,
 #catalog .card img,
 #grid .card img,
 .grid .card img,
 .product-card img {
-  transition: transform 180ms cubic-bezier(.2,.75,.25,1), filter 180ms ease !important;
-  transform: translateY(0) scale(1);
-  transform-origin: center center;
-  will-change: transform;
+ transition: transform 180ms cubic-bezier(.2,.75,.25,1), filter 180ms ease !important;
+ transform: translateY(0) scale(1);
+ transform-origin: center center;
+ will-change: transform;
 }
 @media (hover: hover) and (pointer: fine) {
-  .platform-chip:hover img,
-  #catalog .card:hover img,
-  #grid .card:hover img,
-  .grid .card:hover img,
-  .product-card:hover img {
-    transform: translateY(-4px) scale(1.045);
-    filter: drop-shadow(0 5px 7px rgba(0,0,0,.16));
-  }
+ .platform-chip:hover img,
+ #catalog .card:hover img,
+ #grid .card:hover img,
+ .grid .card:hover img,
+ .product-card:hover img {
+ transform: translateY(-4px) scale(1.045);
+ filter: drop-shadow(0 5px 7px rgba(0,0,0,.16));
+ }
 }
 @media (hover: none), (pointer: coarse) {
-  .platform-chip:active img,
-  #catalog .card:active img,
-  #grid .card:active img,
-  .grid .card:active img,
-  .product-card:active img {
-    transform: translateY(-3px) scale(1.035);
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,.14));
-  }
+ .platform-chip:active img,
+ #catalog .card:active img,
+ #grid .card:active img,
+ .grid .card:active img,
+ .product-card:active img {
+ transform: translateY(-3px) scale(1.035);
+ filter: drop-shadow(0 4px 6px rgba(0,0,0,.14));
+ }
 }
 @media (prefers-reduced-motion: reduce) {
-  .platform-chip img, #catalog .card img, #grid .card img, .grid .card img, .product-card img { transition: none !important; }
+ .platform-chip img, #catalog .card img, #grid .card img, .grid .card img, .product-card img { transition: none !important; }
 }
 </style>
 
 <style id="category-switch-transition-style">
-/* Smooth category changes without adding, replacing, or duplicating any app icons. */
+/* Плавная смена категорий без добавления, замены или дублирования иконок приложений. */
 .category-tab{transition:background .24s ease,color .24s ease,box-shadow .24s ease,transform .22s cubic-bezier(.2,.8,.2,1)!important}
 .platform-shortcuts .platform-chip.category-switch-in{animation:categorySwitchIn .34s cubic-bezier(.2,.8,.2,1) both!important}
 #grid .card.category-switch-in,.grid .card.category-switch-in,#catalog .card.category-switch-in{animation:categoryCardSwitchIn .34s cubic-bezier(.2,.8,.2,1) both!important}
@@ -1980,15 +1976,15 @@ button:not(:disabled), [role="button"], a { cursor: pointer; }
  const tabs=Array.from(document.querySelectorAll('.category-tab[data-category]'));
  if(!tabs.length)return;
  function animateVisible(){
-   const visible=document.querySelectorAll('.platform-shortcuts .platform-chip:not([hidden]), #grid .card:not([hidden]), .grid .card:not([hidden]), #catalog .card:not([hidden])');
-   visible.forEach((el,i)=>{
-     if(el.style.display==='none'||el.getAttribute('aria-hidden')==='true')return;
-     el.classList.remove('category-switch-in');
-     void el.offsetWidth;
-     el.style.animationDelay=Math.min(i*28,196)+'ms';
-     el.classList.add('category-switch-in');
-     el.addEventListener('animationend',()=>{el.classList.remove('category-switch-in');el.style.animationDelay='';},{once:true});
-   });
+ const visible=document.querySelectorAll('.platform-shortcuts .platform-chip:not([hidden]), #grid .card:not([hidden]), .grid .card:not([hidden]), #catalog .card:not([hidden])');
+ видимый.forEach((el,i)=>{
+ if(el.style.display==='none'||el.getAttribute('aria-hidden')==='true')return;
+ el.classList.remove('category-switch-in');
+ void el.offsetWidth;
+ el.style.animationDelay=Math.min(i*28,196)+'ms';
+ el.classList.add('category-switch-in');
+ el.addEventListener('animationend',()=>{el.classList.remove('category-switch-in');el.style.animationDelay='';},{once:true});
+ });
  }
  tabs.forEach(tab=>tab.addEventListener('click',()=>{requestAnimationFrame(animateVisible)}));
 })();
@@ -1999,67 +1995,67 @@ button:not(:disabled), [role="button"], a { cursor: pointer; }
 .platform-shortcuts .platform-chip,
 #grid .card, .grid .card, #catalog .card,
 .platform-chip img, #grid .card img, .grid .card img, #catalog .card img, .product-card img {
-  transition: transform .48s cubic-bezier(.22,1,.36,1), opacity .48s ease, filter .48s ease, box-shadow .48s ease !important;
+ transition: transform .48s cubic-bezier(.22,1,.36,1), opacity .48s ease, filter .48s ease, box-shadow .48s ease !important;
 }
 @keyframes v3enySoftChipEnter {
-  from { opacity: .82; transform: translateY(3px); }
-  to { opacity: 1; transform: translateY(0); }
+ from { opacity: .82; transform: translateY(3px); }
+ to { opacity: 1; transform: translateY(0); }
 }
 @keyframes v3enySoftCardEnter {
-  from { opacity: .86; transform: translateY(3px); }
-  to { opacity: 1; transform: translateY(0); }
+ from { opacity: .86; transform: translateY(3px); }
+ to { opacity: 1; transform: translateY(0); }
 }
 .platform-shortcuts .platform-chip.category-switch-in {
-  animation: v3enySoftChipEnter .72s cubic-bezier(.22,1,.36,1) both !important;
+ animation: v3enySoftChipEnter .72s cubic-bezier(.22,1,.36,1) both !important;
 }
 #grid .card.category-switch-in, .grid .card.category-switch-in, #catalog .card.category-switch-in {
-  animation: v3enySoftCardEnter .72s cubic-bezier(.22,1,.36,1) both !important;
+ animation: v3enySoftCardEnter .72s cubic-bezier(.22,1,.36,1) both !important;
 }
 @media (hover: hover) and (pointer: fine) {
-  .platform-chip:hover img, #catalog .card:hover img, #grid .card:hover img, .grid .card:hover img, .product-card:hover img {
-    transform: translateY(-1px) scale(1.012) !important;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,.10)) !important;
-  }
+ .platform-chip:hover img, #catalog .card:hover img, #grid .card:hover img, .grid .card:hover img, .product-card:hover img {
+ transform: translateY(-1px) scale(1.012) !important;
+ filter: drop-shadow(0 2px 4px rgba(0,0,0,.10)) !important;
+ }
 }
 @media (hover: none), (pointer: coarse) {
-  .platform-chip:active img, #catalog .card:active img, #grid .card:active img, .grid .card:active img, .product-card:active img {
-    transform: translateY(-1px) scale(1.008) !important;
-    filter: none !important;
-  }
+ .platform-chip:active img, #catalog .card:active img, #grid .card:active img, .grid .card:active img, .product-card:active img {
+ transform: translateY(-1px) scale(1.008) !important;
+ filter: none !important;
+ }
 }
 @media (prefers-reduced-motion: reduce) {
-  .platform-shortcuts .platform-chip.category-switch-in, #grid .card.category-switch-in, .grid .card.category-switch-in, #catalog .card.category-switch-in { animation: none !important; }
-  .platform-shortcuts .platform-chip, #grid .card, .grid .card, #catalog .card, .platform-chip img, #grid .card img, .grid .card img, #catalog .card img, .product-card img { transition: none !important; }
+ .platform-shortcuts .platform-chip.category-switch-in, #grid .card.category-switch-in, .grid .card.category-switch-in, #catalog .card.category-switch-in { animation: none !important; }
+ .platform-shortcuts .platform-chip, #grid .card, .grid .card, #catalog .card, .platform-chip img, #grid .card img, .grid .card img, #catalog .card img, .product-card img { transition: none !important; }
 }
 
-/* Subtle app-card hover: almost no vertical movement */
+/* При наведении на карточку приложения почти не происходит вертикального перемещения */
 .card { transition: transform .32s cubic-bezier(.22,.61,.36,1), box-shadow .32s ease, border-color .32s ease !important; }
 .card:hover { transform: translateY(-1px) !important; box-shadow: 0 6px 16px rgba(22,112,168,.055) !important; }
 @media (hover: none), (pointer: coarse) { .card:hover { transform: none !important; box-shadow: none !important; } }
 </style>
 
 <style id="v3eny-fix-falling-apps">
-/* Fix: reveal cards without vertical movement, so they never appear to fall. */
+/* Исправление: отображение карточек без вертикального движения, чтобы не создавалось впечатление, что они падают. */
 #grid .card, .grid .card, #catalog .card, .platform-shortcuts .platform-chip, .motion-reveal {
-  transform: none !important;
+ transform: none !important;
 }
 .motion-reveal { opacity: 1 !important; }
 .motion-reveal.motion-visible { animation: v3enyFadeOnly .45s ease both !important; }
 #grid .card.category-switch-in, .grid .card.category-switch-in, #catalog .card.category-switch-in,
 .platform-shortcuts .platform-chip.category-switch-in {
-  animation: v3enyFadeOnly .42s ease both !important;
+ animation: v3enyFadeOnly .42s ease both !important;
 }
 @keyframes v3enyFadeOnly { from { opacity: .72; } to { opacity: 1; } }
 @media (hover: hover) and (pointer: fine) {
-  #grid .card:hover, .grid .card:hover, #catalog .card:hover, .card:hover {
-    transform: translateY(-1px) !important;
-  }
+ #grid .card:hover, .grid .card:hover, #catalog .card:hover, .card:hover {
+ transform: translateY(-1px) !important;
+ }
 }
 @media (hover: none), (pointer: coarse) {
-  #grid .card:hover, .grid .card:hover, #catalog .card:hover, .card:hover { transform: none !important; }
+ #grid .card:hover, .grid .card:hover, #catalog .card:hover, .card:hover { transform: none !important; }
 }
 
-/* Compact layout scaled to match igram-da.com reference */
+/* Компактный макет, масштабированный в соответствии с референсом igram-da.com */
 .wrap{max-width:800px;padding-left:16px;padding-right:16px}
 body{font-size:14px}
 .nav{height:58px;gap:12px}
@@ -2099,12 +2095,12 @@ section{padding:12px 0 24px}
 </style>
 
 <style id="igram-tabs-size-adjustment">
-/* Compact category pills, similar to igram-da.com */
+/* Компактные карточки категорий, как на igram-da.com */
 .filters{gap:5px!important;margin-bottom:14px!important}
 .filter{padding:6px 10px!important;font-size:11px!important;font-weight:600!important;line-height:1.2!important;border-radius:999px!important;min-height:27px!important}
 @media(max-width:600px){.filters{gap:4px!important}.filter{padding:6px 9px!important;font-size:10px!important;min-height:26px!important}}
 
-/* Compact category tabs: explicit override of earlier sizing rules */
+/* Компактные вкладки категорий: явное переопределение предыдущих правил определения размеров */
 .filters { gap: 5px !important; margin-bottom: 14px !important; align-items: center; }
 .filters .filter { min-height: 0 !important; height: 30px !important; padding: 0 11px !important; font-size: 11px !important; line-height: 1 !important; font-weight: 600 !important; border-radius: 999px !important; }
 @media (max-width: 700px) { .filters { gap: 4px !important; } .filters .filter { height: 28px !important; padding: 0 9px !important; font-size: 10px !important; } }
@@ -2112,50 +2108,50 @@ section{padding:12px 0 24px}
 
 
 <style id="reference-sized-category-tabs">
-/* Compact category pill sized to match the supplied reference image. */
+/* Компактные вкладки категорий соответствуют предоставленному эталонному изображению. */
 #catalog .category-tabs {
-  width: fit-content !important;
-  max-width: 100% !important;
-  min-height: 0 !important;
-  margin: 0 auto 14px !important;
-  padding: 3px !important;
-  gap: 2px !important;
-  justify-content: center !important;
-  align-items: center !important;
-  border-radius: 999px !important;
-  overflow-x: auto !important;
-  box-sizing: border-box !important;
+ width: fit-content !important;
+ max-width: 100% !important;
+ min-height: 0 !important;
+ margin: 0 auto 14px !important;
+ padding: 3px !important;
+ gap: 2px !important;
+ justify-content: center !important;
+ align-items: center !important;
+ border-radius: 999px !important;
+ overflow-x: auto !important;
+ box-sizing: border-box !important;
 }
 #catalog .category-tabs .category-tab {
-  flex: 0 0 auto !important;
-  min-width: 0 !important;
-  min-height: 0 !important;
-  height: 36px !important;
-  padding: 0 13px !important;
-  margin: 0 !important;
-  font-size: 14px !important;
-  line-height: 1 !important;
-  font-weight: 600 !important;
-  border-radius: 999px !important;
-  white-space: nowrap !important;
-  box-sizing: border-box !important;
+ flex: 0 0 auto !important;
+ min-width: 0 !important;
+ min-height: 0 !important;
+ height: 36px !important;
+ padding: 0 13px !important;
+ margin: 0 !important;
+ font-size: 14px !important;
+ line-height: 1 !important;
+ font-weight: 600 !important;
+ border-radius: 999px !important;
+ white-space: nowrap !important;
+ box-sizing: border-box !important;
 }
 @media (max-width: 480px) {
-  #catalog .category-tabs { max-width: calc(100vw - 32px) !important; }
-  #catalog .category-tabs .category-tab { height: 33px !important; padding: 0 11px !important; font-size: 13.2px !important; }
+ #catalog .category-tabs { max-width: calc(100vw - 32px) !important; }
+ #catalog .category-tabs .category-tab { height: 33px !important; padding: 0 11px !important; font-size: 13.2px !important; }
 }
 </style>
 
 <script id="bilingual-search-final-fix">
 (function(){
-  function init(){
-    const input=document.getElementById('search');
-    const grid=document.getElementById('grid');
-    const empty=document.getElementById('empty');
-    const tabs=[...document.querySelectorAll('.category-tab[data-category]')];
-    const cards=[...document.querySelectorAll('#grid .card')];
-    const chips=[...document.querySelectorAll('.platform-shortcuts .platform-chip')];
-    if(!input || !cards.length) return;
+ function init(){
+ const input=document.getElementById('search');
+ const grid=document.getElementById('grid');
+ const empty=document.getElementById('empty');
+ const tabs=[...document.querySelectorAll('.category-tab[data-category]')];
+ const cards=[...document.querySelectorAll('#grid .card')];
+ const chips=[...document.querySelectorAll('.platform-shortcuts .platform-chip')];
+ if(!input || !cards.длина) возврат;
     const norm=s=>(s||'').toString().toLocaleLowerCase('ru').replace(/ё/g,'е').replace(/[^\p{L}\p{N}]+/gu,' ').trim().replace(/\s+/g,' ');
     const aliases={
       'fortnite':['фортнайт','форнайт','фортните','фортнайт'], 'roblox':['роблокс','роблокс'],
@@ -2168,52 +2164,52 @@ section{padding:12px 0 24px}
     };
     const translit=s=>norm(s).replace(/[а-я]/g,ch=>({'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ж':'zh','з':'z','и':'i','й':'y','к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f','х':'h','ц':'ts','ч':'ch','ш':'sh','щ':'shch','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya'}[ch]||ch));
     function expanded(s){
-      const base=norm(s); let out=' '+base+' '+translit(base)+' ';
-      Object.entries(aliases).forEach(([en,variants])=>{
-        const all=[en,...variants];
-        if(all.some(v=>base.includes(norm(v))||translit(base).includes(translit(v)))) out+=' '+all.map(norm).join(' ')+' '+all.map(translit).join(' ')+' ';
-      });
-      return out;
-    }
-    function hay(el){return expanded([el.dataset.name,el.dataset.title,el.dataset.product,el.textContent,el.className,el.getAttribute('aria-label')].filter(Boolean).join(' '));}
-    const records=[...cards,...chips].map(el=>({el,search:hay(el)}));
-    const categoryLists={
-      games:['fortnite','roblox','gta','grand theft auto','brawl stars','clash royale','бравл старс','клэш рояль'],
-      services:['spotify','telegram','apple','discord','дискорд'], consoles:['xbox','playstation','steam deck'],
-      software:['steam','chatgpt','чатгпт','gemini','гемини','grok','грок']
-    };
-    function apply(){
-      const q=norm(input.value);
-      const qForms=[q,translit(q)];
-      Object.entries(aliases).forEach(([en,variants])=>{if([en,...variants].some(v=>norm(v)===q)) qForms.push(en,...variants,...[en,...variants].map(translit));});
-      const qWords=q.split(/\s+/).filter(Boolean);
-      const active=tabs.find(t=>t.classList.contains('active'));
-      const category=active?(active.dataset.category||'all'):'all';
-      let count=0;
-      records.forEach(({el,search})=>{
-        const categoryHay=norm([el.dataset.name,el.dataset.title,el.dataset.product,el.textContent,el.className].join(' '));
-        const allowed=category==='all'||(categoryLists[category]||[]).some(name=>categoryHay.includes(norm(name))||expanded(categoryHay).includes(' '+norm(name)+' '));
-        const textMatch=!q||qForms.some(form=>search.includes(' '+norm(form)+' ')||search.startsWith(norm(form)+' ')||search.endsWith(' '+norm(form)))||qWords.every(word=>search.includes(' '+word+' ')||search.startsWith(word+' ')||search.endsWith(' '+word));
-        const matches=allowed&&textMatch;
-        el.style.setProperty('display',matches?'':'none','important');
-        if(el.classList.contains('platform-chip')) el.hidden=!matches;
-        if(el.classList.contains('card')&&matches) count++;
-      });
-      if(empty){empty.style.display=count?'none':'block';empty.textContent=q?'Ничего не найдено — попробуйте название на русском или английском':'В этой категории ничего не найдено';}
-    }
-    input.addEventListener('input',apply);
-    tabs.forEach(tab=>tab.addEventListener('click',()=>setTimeout(apply,0)));
-    // Run last after older catalog handlers, so their filtering cannot override bilingual search.
-    input.addEventListener('input',()=>setTimeout(apply,0));
-    apply();
-  }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true}); else init();
+ const base=norm(s); let out=' '+base+' '+translit(base)+' ';
+ Object.entries(aliases).forEach(([en,variants])=>{
+ const all=[en,...variants];
+ if(all.some(v=>base.includes(norm(v))||translit(base).includes(translit(v)))) out+=' '+all.map(norm).join(' ')+' '+all.map(translit).join(' ')+' ';
+ });
+ return out;
+ }
+ function hay(el){return expanded([el.dataset.name,el.dataset.title,el.dataset.product,el.textContent,el.className,el.getAttribute('aria-label')].filter(Boolean).join(' '));}
+ const records=[...cards,...chips].map(el=>({el,search:hay(el)}));
+ const categoryLists={ 
+ игры: ['fortnite','roblox', 'gta', 'grand theft auto','brawl stars', 'clash royale','бравл старс','клэш рояль'], 
+ сервисы: ['spotify','telegram', 'apple','discord','дискорд'], консоли:['xbox','playstation', 'steam deck'], 
+ программное обеспечение: ['steam','chatgpt','чатгпт', 'gemini','гемини','grok','грок']
+ };
+ function apply(){
+ const q=norm(input.value);
+ const qForms=[q,translit(q)];
+ Object.entries(aliases).forEach(([en,variants])=>{if([en,...variants].some(v=>norm(v)===q)) qForms.push(en,...variants,...[en,...variants].map(translit));});
+ const qWords=q.split(/\s+/).filter(Boolean);
+ const active=tabs.find(t=>t.classList.contains('active'));
+ const category=active?(active.dataset.category||'all'):'all';
+ let count=0;
+ records.forEach(({el,search})=>{
+ const categoryHay=norm([el.dataset.name,el.dataset.title,el.dataset.product,el.textContent,el.className].join(' '));
+ const allowed=category==='all'||(categoryLists[category]||[]).some(name=>categoryHay.includes(norm(name))||expanded(categoryHay).includes(' '+norm(name)+' '));
+ const textMatch=!q||qForms.some(form=>search.includes(' '+norm(form)+' ')||search.startsWith(norm(form)+' ')||search.endsWith(' '+norm(form)))||qWords.every(word=>search.includes(' '+word+' ')||search.startsWith(word+' ')||search.endsWith(' '+word));
+ const matches=allowed&&textMatch;
+ el.style.setProperty('display',matches?'':'none','important');
+ if(el.classList.contains('platform-chip')) el.hidden=!matches;
+ if(el.classList.contains('card')&&matches) count++;
+ });
+ if(empty){empty.style.display=count?'none':'block';empty.textContent=q?'Ничего не найдено — попробуйте ввести название на русском или английском':'В этой категории ничего не найдено';}
+ }
+ input.addEventListener('input',apply);
+ tabs.forEach(tab=>tab.addEventListener('click',()=>setTimeout(apply,0)));
+ // Выполняется последней после старых обработчиков каталога, чтобы их фильтрация не могла повлиять на двуязычный поиск.
+ input.addEventListener('input',()=>setTimeout(apply,0));
+ apply();
+ }
+ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true}); else init();
 })();
 </script>
 
 
 <style id="definitive-no-category-flash">
-/* Final stability override: category switching is instantaneous, without fade/entry animation. */
+/* Окончательное изменение стабильности: переключение категорий происходит мгновенно, без анимации появления. */
 #catalog .category-tab,
 #catalog .category-tab.active,
 #catalog .filters .filter,
@@ -2224,87 +2220,87 @@ section{padding:12px 0 24px}
 #grid .card.category-switch-in, .grid .card.category-switch-in, #catalog .card.category-switch-in,
 .platform-shortcuts .platform-chip.category-switch-in,
 .motion-reveal, .motion-reveal.motion-visible {
-  animation: none !important;
-  transition: none !important;
-  animation-delay: 0ms !important;
+ animation: none !important;
+ transition: none !important;
+ animation-delay: 0ms !important;
 }
 #grid .card, .grid .card, #catalog .card,
 .platform-shortcuts .platform-chip {
-  will-change: auto !important;
+ will-change: auto !important;
 }
 </style>
 <script id="definitive-no-category-flash-script">
 (function(){
-  function stabilize(){
-    document.querySelectorAll('.category-switch-in,.is-entering,.motion-visible').forEach(function(el){
-      el.classList.remove('category-switch-in','is-entering','motion-visible');
-      el.style.animationDelay='';
-    });
-  }
-  document.querySelectorAll('.category-tab[data-category], .filters .filter').forEach(function(tab){
-    tab.addEventListener('click',function(){
-      stabilize();
-      requestAnimationFrame(stabilize);
-      setTimeout(stabilize,0);
-    },true);
-  });
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',stabilize,{once:true}); else stabilize();
+ function stabilize(){
+ документ.querySelectorAll('.category-switch-in,.is-entering,.motion-visible').forEach(function(el){
+ el.classList.remove('category-switch-in','is-entering','motion-visible');
+ el.style.animationDelay='';
+ });
+ }
+ документ.querySelectorAll('.category-tab[data-category], .filters .filter').forEach(function(tab){
+ tab.addEventListener('click',function(){
+ stabilize();
+ requestAnimationFrame(stabilize);
+ setTimeout(stabilize,0);
+ },true);
+ });
+ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',stabilize,{once:true}); else stabilize();
 })();
 </script>
 
-<!-- v3eny store: subtle interactive animations (category switching stays instant) -->
+<!-- v3eny store: тонкая интерактивная анимация (переключение категорий происходит мгновенно) -->
 <style id="v3eny-interactive-animations">
 @keyframes v3enyHeroIntro {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
+ from { opacity: 0; transform: translateY(14px); }
+ to { opacity: 1; transform: translateY(0); }
 }
 @keyframes v3enyModalIntro {
-  from { opacity: 0; transform: translateY(10px) scale(.985); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+ from { opacity: 0; transform: translateY(10px) scale(.985); }
+ to { opacity: 1; transform: translateY(0) scale(1); }
 }
 .steam-topup-hero {
-  animation: v3enyHeroIntro .55s cubic-bezier(.2,.7,.25,1) both;
+ animation: v3enyHeroIntro .55s cubic-bezier(.2,.7,.25,1) both;
 }
 #catalog .card, #grid .card, .grid .card {
-  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease !important;
+ transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease !important;
 }
 #catalog .card:hover, #grid .card:hover, .grid .card:hover {
-  transform: translateY(-4px) !important;
-  box-shadow: 0 12px 30px rgba(0,0,0,.18) !important;
+ transform: translateY(-4px) !important;
+ box-shadow: 0 12px 30px rgba(0,0,0,.18) !important;
 }
 #catalog .card img, #grid .card img, .grid .card img {
-  transition: transform .28s ease !important;
+ transition: transform .28s ease !important;
 }
 #catalog .card:hover img, #grid .card:hover img, .grid .card:hover img {
-  transform: scale(1.035);
+ transform: scale(1.035);
 }
 #catalog .open-btn, #catalog .platform-chip, .steam-buy-button,
 button.open-btn, .cart-add-btn, .profile-reference-action {
-  transition: transform .18s ease, filter .18s ease, box-shadow .18s ease !important;
+ transition: transform .18s ease, filter .18s ease, box-shadow .18s ease !important;
 }
 #catalog .open-btn:hover, #catalog .platform-chip:hover, .steam-buy-button:hover,
 button.open-btn:hover, .cart-add-btn:hover, .profile-reference-action:hover {
-  transform: translateY(-2px) !important;
-  filter: brightness(1.08);
+ transform: translateY(-2px) !important;
+ filter: brightness(1.08);
 }
 #catalog .open-btn:active, #catalog .platform-chip:active, .steam-buy-button:active,
 button.open-btn:active, .cart-add-btn:active, .profile-reference-action:active {
-  transform: scale(.97) !important;
+ transform: scale(.97) !important;
 }
 @media (prefers-reduced-motion: reduce) {
-  .steam-topup-hero { animation: none !important; }
-  #catalog .card, #grid .card, .grid .card,
-  #catalog .card img, #grid .card img, .grid .card img,
-  #catalog .open-btn, #catalog .platform-chip, .steam-buy-button,
-  button.open-btn, .cart-add-btn, .profile-reference-action {
-    transition: none !important;
-  }
+ .steam-topup-hero { animation: none !important; }
+ #catalog .card, #grid .card, .grid .card,
+ #catalog .card img, #grid .card img, .grid .card img,
+ #catalog .open-btn, #catalog .platform-chip, .steam-buy-button,
+ button.open-btn, .cart-add-btn, .profile-reference-action {
+ transition: none !important;
+ }
 }
 </style>
 
-<!-- v3eny store: prevent app/card flicker when changing catalog categories -->
+<!-- v3eny store: предотвращение мерцания приложения/карточки при смене категорий каталога -->
 <style id="v3eny-category-no-flicker-final">
-/* Category changes should update visibility immediately; keep hover effects available. */
+/* При изменении категории видимость должна обновляться немедленно; эффекты наведения должны оставаться доступными. */
 #catalog .platform-shortcuts .platform-chip,
 #catalog .platform-shortcuts .platform-chip:not([hidden]),
 #catalog .platform-shortcuts .platform-chip.category-switch-in,
@@ -2314,38 +2310,38 @@ button.open-btn:active, .cart-add-btn:active, .profile-reference-action:active {
 #catalog #grid .card.is-entering,
 #grid .card.category-switch-in,
 #grid .card.is-entering {
-  animation: none !important;
-  animation-name: none !important;
-  animation-duration: 0s !important;
-  animation-delay: 0s !important;
+ animation: none !important;
+ animation-name: none !important;
+ animation-duration: 0s !important;
+ animation-delay: 0s !important;
 }
-/* Avoid opacity/transform transitions on items being hidden and shown by filters. */
+/* Избегайте переходов по непрозрачности/трансформации для элементов, которые скрываются и отображаются с помощью фильтров. */
 #catalog .platform-shortcuts .platform-chip,
 #catalog .platform-shortcuts .platform-chip:not([hidden]),
 #catalog #grid .card,
 #grid .card {
-  transition-property: box-shadow, border-color !important;
-  transition-duration: .2s !important;
+ transition-property: box-shadow, border-color !important;
+ transition-duration: .2s !important;
 }
 #catalog .platform-shortcuts .platform-chip,
 #catalog .platform-shortcuts .platform-chip:not([hidden]) {
-  opacity: 1 !important;
-  filter: none !important;
+ opacity: 1 !important;
+ filter: none !important;
 }
 @media (prefers-reduced-motion: reduce) {
-  #catalog .platform-shortcuts .platform-chip,
-  #catalog #grid .card,
-  #grid .card { transition: none !important; }
+ #catalog .platform-shortcuts .platform-chip,
+ #catalog #grid .card,
+ #grid .card { transition: none !important; }
 }
 </style>
 <script id="v3eny-category-no-flicker-final-js">
 (function(){
-  function clearCategoryMotion(){
-    document.querySelectorAll('#catalog .platform-chip, #catalog #grid .card, #grid .card').forEach(function(el){
-      el.classList.remove('category-switch-in','is-entering','motion-reveal','motion-visible');
-      el.style.removeProperty('animation-delay');
-    });
-  }
+ function clearCategoryMotion(){
+ document.querySelectorAll('#catalog .platform-chip, #catalog #grid .card, #grid .card').forEach(function(el){
+ el.classList.remove('category-switch-in','is-entering','motion-reveal','motion-visible');
+ el.style.removeProperty('animation-delay');
+ });
+ }
   document.addEventListener('click',function(e){
     if(e.target.closest('.category-tab[data-category]')){
       clearCategoryMotion();
