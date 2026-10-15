@@ -1064,21 +1064,38 @@ document.getElementById('confirm-payment').addEventListener('click',()=>{
   $('cart-message').style.color='#176b37';
   $('cart-message').textContent='Отправляем заявку в Telegram…';
   try{
-    await fetch('https://script.google.com/macros/s/AKfycbyuzvbvoH3F-ql90Fw3vZlmPTBusOauWBqIB8EdxCuBfvyFtFbl6YoaH6A3gGIPzQAH/exec',{
-      method:'POST',
-      mode:'no-cors',
-      redirect:'follow',
-      headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body:JSON.stringify(payload)
+    const sb=window.v3enySupabaseClient;
+    if(!sb) throw new Error('Supabase не загрузился. Обнови страницу и попробуй снова.');
+    const {data:sessionData,error:sessionError}=await sb.auth.getSession();
+    if(sessionError || !sessionData.session?.user) throw new Error('Сессия входа не найдена. Войди в аккаунт и попробуй снова.');
+    const user=sessionData.session.user;
+    const {error:saveError}=await sb.from('store_orders').insert({
+      user_id:user.id,
+      customer_email:user.email||'',
+      customer_name:user.user_metadata?.nickname||user.user_metadata?.name||(user.email||'Покупатель').split('@')[0],
+      contact:contact.trim(),
+      comment:comment.trim()||'Нет комментария',
+      items:cart.map(item=>({name:item.name,price:item.price,quantity:item.qty,subtotal:item.price*item.qty})),
+      total:total,
+      status:'Новый'
     });
-    $('cart-message').textContent='Заявка отправлена. Проверь Telegram у продавца и дождись ответа перед оплатой.';
+    if(saveError) throw new Error(saveError.message.includes('store_orders')?'Таблица заказов ещё не настроена в Supabase. Выполни SQL из приложенного файла и попробуй снова.':saveError.message);
+    // Also notify seller in Telegram. Database save above is the source of truth.
+    try{
+      await fetch('https://script.google.com/macros/s/AKfycbyuzvbvoH3F-ql90Fw3vZlmPTBusOauWBqIB8EdxCuBfvyFtFbl6YoaH6A3gGIPzQAH/exec',{
+        method:'POST',mode:'no-cors',redirect:'follow',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)
+      });
+    }catch(telegramError){ console.warn('Заказ сохранён, но уведомление Telegram не отправилось',telegramError); }
+    $('cart-message').textContent='Заказ сохранён на сайте! Продавец увидит его в кабинете заказов.';
     cart=[];
     save();
     $('checkout-contact').value='';
     $('checkout-comment').value='';
   }catch(error){
+    console.error('Checkout error:',error);
     $('cart-message').style.color='#a23b2b';
-    $('cart-message').textContent='Не удалось отправить заявку. Попробуй ещё раз или напиши продавцу напрямую.';
+    $('cart-message').textContent=error.message||'Не удалось сохранить заказ. Попробуй ещё раз.';
   }finally{
     button.disabled=false;
     button.textContent='Перейти к оформлению';
@@ -1142,6 +1159,7 @@ document.getElementById('confirm-payment').addEventListener('click',()=>{
  const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpidnBvcWZ6a3F6anZwZGlkZHF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIwODM2ODMsImV4cCI6MjEwNzY1OTY4M30.mzVwRt_ibTnz3w2D10TQ_JhD3K7f_bfU6dP4sg9DznM';
  if(!window.supabase){console.error('Supabase JS did not load');return;}
  const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+ window.v3enySupabaseClient=client;
  let profile=null,mode='login';
  const safeText=v=>String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  function profileFromUser(user){if(!user)return null;const meta=user.user_metadata||{};return {id:user.id,name:meta.nickname||meta.name||user.email?.split('@')[0]||'Покупатель',email:user.email||'',avatar:meta.avatar||'',createdAt:user.created_at||''};}
@@ -2600,6 +2618,61 @@ button.open-btn:active, .cart-add-btn:active, .profile-reference-action:active {
   header > .nav > .brand { font-size: 14px !important; }
 }
 </style>
+
+
+<style id="v3eny-seller-dashboard-style">
+#v3-seller-open{display:none;position:fixed;z-index:9990;left:18px;bottom:20px;border:0;border-radius:999px;padding:13px 18px;background:#15162e;color:#fff;font-weight:800;box-shadow:0 8px 28px #0003;cursor:pointer}
+#v3-seller-backdrop{display:none;position:fixed;z-index:10000;inset:0;background:#080b19b8;backdrop-filter:blur(5px);padding:18px;overflow:auto;align-items:flex-start;justify-content:center}
+#v3-seller-backdrop.open{display:flex}
+#v3-seller-panel{width:min(980px,100%);margin:3vh auto;background:#fff;color:#17182d;border-radius:22px;padding:22px;box-shadow:0 20px 70px #0004;max-height:92vh;overflow:auto}
+.v3-seller-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.v3-seller-head h2{margin:0;font-size:24px}.v3-seller-close{border:0;background:#f0f1f7;border-radius:50%;width:40px;height:40px;font-size:24px;cursor:pointer}
+#v3-seller-status{color:#656b7d;font-size:14px;margin:8px 0 14px}.v3-order-card{border:1px solid #e6e8f0;border-radius:16px;padding:16px;margin:12px 0;background:#fff}.v3-order-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}.v3-order-title{font-weight:850;font-size:16px}.v3-order-meta{color:#71778b;font-size:13px;margin-top:5px}.v3-order-items{white-space:pre-line;line-height:1.55;margin:12px 0}.v3-order-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.v3-order-total{font-size:18px;font-weight:900}.v3-order-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.v3-order-actions select{border:1px solid #d8dbea;border-radius:10px;padding:10px;background:#fff;color:#222}.v3-order-actions button{border:0;border-radius:10px;background:#17182d;color:#fff;padding:10px 13px;font-weight:750;cursor:pointer}.v3-order-actions button:disabled{opacity:.5}
+@media(max-width:600px){#v3-seller-open{left:10px;bottom:12px;padding:11px 14px}#v3-seller-backdrop{padding:8px}#v3-seller-panel{padding:15px;border-radius:18px;max-height:96vh}.v3-seller-head h2{font-size:20px}.v3-order-card{padding:12px}}
+</style>
+<button id="v3-seller-open" type="button">📋 Заказы</button>
+<div id="v3-seller-backdrop" aria-hidden="true">
+ <section id="v3-seller-panel" role="dialog" aria-modal="true" aria-labelledby="v3-seller-title">
+  <div class="v3-seller-head"><h2 id="v3-seller-title">Заказы магазина</h2><button id="v3-seller-close" class="v3-seller-close" type="button" aria-label="Закрыть">×</button></div>
+  <div id="v3-seller-status">Загрузка заказов…</div>
+  <div id="v3-seller-list"></div>
+ </section>
+</div>
+<script id="v3eny-seller-dashboard-script">
+(()=>{
+ const ADMIN_EMAIL='magicandtricks512@gmail.com';
+ const $=id=>document.getElementById(id);
+ const openBtn=$('v3-seller-open'),backdrop=$('v3-seller-backdrop'),list=$('v3-seller-list'),status=$('v3-seller-status');
+ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const rub=v=>new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2}).format(Number(v)||0)+' ₽';
+ const client=()=>window.v3enySupabaseClient;
+ function showForUser(user){const isAdmin=(user?.email||'').toLowerCase()===ADMIN_EMAIL;openBtn.style.display=isAdmin?'block':'none';if(!isAdmin)close();}
+ function close(){backdrop.classList.remove('open');backdrop.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+ async function loadOrders(){
+  const sb=client();if(!sb){status.textContent='Supabase не загрузился. Обнови страницу.';return;}
+  status.textContent='Загружаю заказы…';list.innerHTML='';
+  const {data,error}=await sb.from('store_orders').select('*').order('created_at',{ascending:false}).limit(100);
+  if(error){status.textContent='Не удалось загрузить заказы. Проверь, что SQL из файла настроен в Supabase. Подробности: '+error.message;return;}
+  if(!data?.length){status.textContent='Пока заказов нет. Новые заказы появятся здесь.';return;}
+  status.textContent='Заказов: '+data.length+' (показаны последние 100)';
+  list.innerHTML=data.map(o=>{
+   const items=Array.isArray(o.items)?o.items.map(i=>`${esc(i.name)} × ${esc(i.quantity)} — ${rub(i.subtotal??(Number(i.price||0)*Number(i.quantity||1)))}`).join('\n'):'Состав заказа недоступен';
+   const date=o.created_at?new Date(o.created_at).toLocaleString('ru-RU'):'Дата не указана';
+   return `<article class="v3-order-card" data-order-id="${esc(o.id)}"><div class="v3-order-top"><div><div class="v3-order-title">Заказ #${esc(String(o.id).slice(0,8))}</div><div class="v3-order-meta">${esc(date)} · ${esc(o.customer_name||'Покупатель')} · ${esc(o.customer_email||'')}</div></div><div class="v3-order-total">${rub(o.total)}</div></div><div class="v3-order-items">${items}</div><div class="v3-order-meta">Контакт: ${esc(o.contact||'Не указан')}<br>Комментарий: ${esc(o.comment||'Нет комментария')}</div><div class="v3-order-bottom"><div class="v3-order-meta">Статус: <strong>${esc(o.status||'Новый')}</strong></div><div class="v3-order-actions"><select aria-label="Статус заказа"><option ${o.status==='Новый'?'selected':''}>Новый</option><option ${o.status==='В обработке'?'selected':''}>В обработке</option><option ${o.status==='Выполнен'?'selected':''}>Выполнен</option><option ${o.status==='Отменён'?'selected':''}>Отменён</option></select><button type="button" data-save-status>Сохранить статус</button></div></div></article>`;
+  }).join('');
+  list.querySelectorAll('[data-save-status]').forEach(btn=>btn.addEventListener('click',async()=>{
+   const card=btn.closest('[data-order-id]'),id=card.dataset.orderId,chosen=card.querySelector('select').value;
+   btn.disabled=true;btn.textContent='Сохраняю…';
+   const {error:updateError}=await sb.from('store_orders').update({status:chosen}).eq('id',id);
+   if(updateError){status.textContent='Не удалось изменить статус: '+updateError.message;btn.disabled=false;btn.textContent='Сохранить статус';return;}
+   await loadOrders();
+  }));
+ }
+ function open(){backdrop.classList.add('open');backdrop.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';loadOrders();}
+ openBtn.addEventListener('click',open);$('v3-seller-close').addEventListener('click',close);backdrop.addEventListener('click',e=>{if(e.target===backdrop)close()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&backdrop.classList.contains('open'))close()});
+ async function init(){const sb=client();if(!sb){setTimeout(init,400);return;}const {data}=await sb.auth.getSession();showForUser(data.session?.user);sb.auth.onAuthStateChange((_event,session)=>showForUser(session?.user));}
+ init();
+})();
+</script>
 
 </body>
 </html>
