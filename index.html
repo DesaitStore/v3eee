@@ -1656,8 +1656,7 @@ button:not(:disabled), [role="button"], a { cursor: pointer; }
 })();
 </script>
 
-</body>
-</html>
+
 
 
 <style id="v3eny-support-chat-header-placement">
@@ -2422,3 +2421,121 @@ button.open-btn:active, .cart-add-btn:active, .profile-reference-action:active {
   apply();
 })();
 </script>
+
+
+<style id="v3eny-mobile-header-final-fix">
+@media (max-width: 760px) {
+  html, body { max-width: 100% !important; overflow-x: hidden !important; }
+  header {
+    position: relative !important;
+    top: auto !important;
+    z-index: 100 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 8px 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+  header > .nav {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 38px 38px 38px !important;
+    grid-template-rows: 40px 46px !important;
+    align-items: center !important;
+    justify-items: stretch !important;
+    gap: 9px 6px !important;
+    width: calc(100% - 32px) !important;
+    max-width: 520px !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    padding: 12px !important;
+    box-sizing: border-box !important;
+    border-radius: 22px !important;
+    background: rgba(255,255,255,.97) !important;
+    border: 1px solid rgba(220,228,240,.95) !important;
+    box-shadow: 0 5px 18px rgba(25,70,120,.10) !important;
+    overflow: visible !important;
+  }
+  header > .nav > .brand {
+    grid-column: 1 !important; grid-row: 1 !important;
+    display: inline-flex !important; align-items: center !important;
+    min-width: 0 !important; width: auto !important; max-width: 100% !important;
+    gap: 6px !important; margin: 0 !important; padding: 0 !important;
+    font-size: 16px !important; line-height: 1.1 !important;
+    white-space: nowrap !important; overflow: hidden !important;
+  }
+  header > .nav > .brand .logo {
+    width: 30px !important; height: 30px !important; flex: 0 0 30px !important;
+    border-radius: 50% !important;
+  }
+  header > .nav > .search {
+    grid-column: 1 / -1 !important; grid-row: 2 !important;
+    display: block !important; position: relative !important;
+    order: initial !important; flex: initial !important;
+    width: 100% !important; min-width: 0 !important; max-width: none !important;
+    height: 46px !important; min-height: 46px !important;
+    margin: 0 !important; padding: 0 !important; box-sizing: border-box !important;
+  }
+  header > .nav > .search > span {
+    position: absolute !important; left: 13px !important; top: 50% !important;
+    transform: translateY(-50%) !important; z-index: 2 !important;
+  }
+  header > .nav > .search input {
+    display: block !important; width: 100% !important; height: 46px !important;
+    min-width: 0 !important; min-height: 46px !important; max-width: none !important;
+    box-sizing: border-box !important; margin: 0 !important;
+    padding: 0 12px 0 38px !important; border-radius: 13px !important;
+    border: 1px solid #dce4ef !important; background: #fff !important;
+    color: #20243a !important; font-size: 16px !important; line-height: normal !important;
+    -webkit-appearance: none !important; appearance: none !important;
+  }
+  header > .nav > .search input::placeholder { color: #778096 !important; opacity: 1 !important; }
+  header > .nav > #account-trigger,
+  header > .nav > #support-chat-launcher,
+  header > .nav > #cart-trigger {
+    position: static !important; inset: auto !important; right: auto !important; bottom: auto !important;
+    grid-row: 1 !important; justify-self: stretch !important; align-self: center !important;
+    display: inline-flex !important; align-items: center !important; justify-content: center !important;
+    flex: none !important; width: 38px !important; min-width: 38px !important; max-width: 38px !important;
+    height: 38px !important; min-height: 38px !important; max-height: 38px !important;
+    margin: 0 !important; padding: 7px !important; box-sizing: border-box !important;
+    border: 1px solid #e1e6ef !important; border-radius: 11px !important;
+    background: #fff !important; color: #727b8c !important; box-shadow: none !important;
+    font: inherit !important; font-size: 12px !important; line-height: 1 !important;
+    white-space: nowrap !important; transform: none !important;
+  }
+  header > .nav > #account-trigger { grid-column: 2 !important; }
+  header > .nav > #support-chat-launcher { grid-column: 3 !important; }
+  header > .nav > #cart-trigger { grid-column: 4 !important; }
+  header > .nav > #account-trigger svg,
+  header > .nav > #support-chat-launcher svg,
+  header > .nav > #cart-trigger svg {
+    display: block !important; width: 19px !important; height: 19px !important;
+    min-width: 19px !important; flex: 0 0 19px !important;
+    fill: none !important; stroke: currentColor !important; stroke-width: 1.8 !important;
+    padding: 0 !important; margin: 0 !important; background: transparent !important;
+  }
+  header > .nav > #account-trigger #account-nav-label,
+  header > .nav > #support-chat-launcher span { display: none !important; }
+  header > .nav > #cart-trigger #cart-count {
+    position: absolute !important; top: -5px !important; right: -5px !important;
+    display: grid !important; place-items: center !important;
+    min-width: 17px !important; height: 17px !important; padding: 0 3px !important;
+    box-sizing: border-box !important; border-radius: 999px !important;
+    background: #258ee9 !important; color: #fff !important; font-size: 10px !important;
+    line-height: 1 !important; border: 2px solid #fff !important;
+  }
+  header > .nav > #cart-trigger { position: relative !important; }
+}
+@media (max-width: 360px) {
+  header > .nav { width: calc(100% - 24px) !important; grid-template-columns: minmax(0,1fr) 34px 34px 34px !important; gap: 8px 4px !important; padding: 10px !important; }
+  header > .nav > #account-trigger, header > .nav > #support-chat-launcher, header > .nav > #cart-trigger { width: 34px !important; min-width: 34px !important; max-width: 34px !important; height: 36px !important; min-height: 36px !important; }
+  header > .nav > .brand { font-size: 14px !important; }
+}
+</style>
+
+</body>
+</html>
