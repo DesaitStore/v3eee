@@ -2757,38 +2757,7 @@ async function loadOrders(){
     });
   });
 
-  list.querySelectorAll('[data-close-order]').forEach(btn=>{
-    btn.addEventListener('click',async()=>{
-      const card=btn.closest('[data-order-id]');
-      const id=card.dataset.orderId;
-
-      if(!confirm('Закрыть заказ? Он исчезнет из панели продавца.')) return;
-
-      btn.disabled=true;
-      btn.textContent='Закрываю…';
-
-      const {error}=await sb
-        .from('store_orders')
-        .update({closed:true})
-        .eq('id',id);
-
-      if(error){
-        status.textContent='Не удалось закрыть заказ: '+error.message;
-        btn.disabled=false;
-        btn.textContent='Закрыть заказ';
-        return;
-      }
-
-      card.remove();
-
-      const count=list.querySelectorAll('.v3-order-card').length;
-      status.textContent=count
-        ? 'Активных заказов: '+count
-        : 'Активных заказов нет.';
-    });
-  });
-}
-
+  
 list.querySelectorAll('[data-close-order]').forEach(btn=>{
   btn.addEventListener('click',async()=>{
     const card=btn.closest('[data-order-id]');
