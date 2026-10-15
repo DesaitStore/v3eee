@@ -2647,40 +2647,147 @@ button.open-btn:active, .cart-add-btn:active, .profile-reference-action:active {
  const client=()=>window.v3enySupabaseClient;
  function showForUser(user){const isAdmin=(user?.email||'').toLowerCase()===ADMIN_EMAIL;openBtn.style.display=isAdmin?'block':'none';if(!isAdmin)close();}
  function close(){backdrop.classList.remove('open');backdrop.setAttribute('aria-hidden','true');document.body.style.overflow='';}
- async function loadOrders(){
-  const sb=client();if(!sb){status.textContent='Supabase не загрузился. Обнови страницу.';return;}
-  status.textContent='Загружаю заказы…';list.innerHTML='';
-  const {data,error}=await sb.from('store_orders').select('*').eq('closed',false).order('created_at',{ascending:false}).limit(100);
-  if(error){status.textContent='Не удалось загрузить заказы. Проверь, что SQL из файла настроен в Supabase. Подробности: '+error.message;return;}
-  if(!data?.length){status.textContent='Пока заказов нет. Новые заказы появятся здесь.';return;}
-  status.textContent='Заказов: '+data.length+' (показаны последние 100)';
+async function loadOrders(){
+  const sb=client();
+
+  if(!sb){
+    status.textContent='Supabase не загрузился. Обнови страницу.';
+    return;
+  }
+
+  status.textContent='Загружаю заказы…';
+  list.innerHTML='';
+
+  const {data,error}=await sb
+    .from('store_orders')
+    .select('*')
+    .eq('closed',false)
+    .order('created_at',{ascending:false})
+    .limit(100);
+
+  if(error){
+    status.textContent='Не удалось загрузить заказы: '+error.message;
+    return;
+  }
+
+  if(!data?.length){
+    status.textContent='Активных заказов нет.';
+    return;
+  }
+
+  status.textContent='Активных заказов: '+data.length;
+
   list.innerHTML=data.map(o=>{
-   const items=Array.isArray(o.items)?o.items.map(i=>`${esc(i.name)} × ${esc(i.quantity)} — ${rub(i.subtotal??(Number(i.price||0)*Number(i.quantity||1)))}`).join('\n'):'Состав заказа недоступен';
-   const date=o.created_at?new Date(o.created_at).toLocaleString('ru-RU'):'Дата не указана';
-   return `<article class="v3-order-card" data-order-id="${esc(o.id)}"><div class="v3-order-top"><div><div class="v3-order-title">Заказ #${esc(String(o.id).slice(0,8))}</div><div class="v3-order-meta">${esc(date)} · ${esc(o.customer_name||'Покупатель')} · ${esc(o.customer_email||'')}</div></div><div class="v3-order-total">${rub(o.total)}</div></div><div class="v3-order-items">${items}</div><div class="v3-order-meta">Контакт: ${esc(o.contact||'Не указан')}<br>Комментарий: ${esc(o.comment||'Нет комментария')}</div>
-<div class="v3-order-bottom">
-  <div class="v3-order-meta">Статус: <strong>${esc(o.status||'Новый')}</strong></div>
-  <div class="v3-order-actions">
-    <select aria-label="Статус заказа">
-      <option ${o.status==='Новый'?'selected':''}>Новый</option>
-      <option ${o.status==='В обработке'?'selected':''}>В обработке</option>
-      <option ${o.status==='Выполнен'?'selected':''}>Выполнен</option>
-      <option ${o.status==='Отменён'?'selected':''}>Отменён</option>
-    </select>
-    <button type="button" data-save-status>Сохранить статус</button>
-    <button type="button" data-close-order="${esc(o.id)}">Закрыть заказ</button>
-  </div>
-</div>
-<div class="v3-order-meta">Статус: <strong>${esc(o.status||'Новый')}</strong></div><div class="v3-order-actions"><select aria-label="Статус заказа"><option ${o.status==='Новый'?'selected':''}>Новый</option><option ${o.status==='В обработке'?'selected':''}>В обработке</option><option ${o.status==='Выполнен'?'selected':''}>Выполнен</option><option ${o.status==='Отменён'?'selected':''}>Отменён</option></select><button type="button" data-save-status>Сохранить статус</button></div></div><section class="v3-chat-box" data-chat-order="${esc(o.id)}"><div class="v3-chat-title">💬 Переписка с клиентом</div><div class="v3-chat-messages">Загружаю сообщения…</div><form class="v3-chat-form"><input name="message" maxlength="2000" placeholder="Напиши клиенту…" required><button type="submit">Отправить</button></form></section></article>`;
+    const items=Array.isArray(o.items)
+      ? o.items.map(i=>`${esc(i.name)} × ${esc(i.quantity)} — ${rub(i.subtotal??(Number(i.price||0)*Number(i.quantity||1)))}`).join('<br>')
+      : 'Состав заказа недоступен';
+
+    const date=o.created_at
+      ? new Date(o.created_at).toLocaleString('ru-RU')
+      : 'Дата не указана';
+
+    return `
+      <article class="v3-order-card" data-order-id="${esc(o.id)}">
+        <div class="v3-order-top">
+          <div>
+            <div class="v3-order-title">Заказ #${esc(String(o.id).slice(0,8))}</div>
+            <div class="v3-order-meta">${esc(date)} · ${esc(o.customer_name||'Покупатель')} · ${esc(o.customer_email||'')}</div>
+          </div>
+          <div class="v3-order-total">${rub(o.total)}</div>
+        </div>
+
+        <div class="v3-order-items">${items}</div>
+
+        <div class="v3-order-meta">
+          Контакт: ${esc(o.contact||'Не указан')}<br>
+          Комментарий: ${esc(o.comment||'Нет комментария')}
+        </div>
+
+        <div class="v3-order-bottom">
+          <div class="v3-order-meta">
+            Статус: <strong>${esc(o.status||'Новый')}</strong>
+          </div>
+          <div class="v3-order-actions">
+            <select aria-label="Статус заказа">
+              <option ${o.status==='Новый'?'selected':''}>Новый</option>
+              <option ${o.status==='В обработке'?'selected':''}>В обработке</option>
+              <option ${o.status==='Выполнен'?'selected':''}>Выполнен</option>
+              <option ${o.status==='Отменён'?'selected':''}>Отменён</option>
+            </select>
+            <button type="button" data-save-status>Сохранить статус</button>
+            <button type="button" data-close-order="${esc(o.id)}">Закрыть заказ</button>
+          </div>
+        </div>
+
+        <section class="v3-chat-box" data-chat-order="${esc(o.id)}">
+          <div class="v3-chat-title">💬 Переписка с клиентом</div>
+          <div class="v3-chat-messages">Загружаю сообщения…</div>
+          <form class="v3-chat-form">
+            <input name="message" maxlength="2000" placeholder="Напиши клиенту…" required>
+            <button type="submit">Отправить</button>
+          </form>
+        </section>
+      </article>`;
   }).join('');
+
   setupSellerChats(sb);
-  list.querySelectorAll('[data-save-status]').forEach(btn=>btn.addEventListener('click',async()=>{
-   const card=btn.closest('[data-order-id]'),id=card.dataset.orderId,chosen=card.querySelector('select').value;
-   btn.disabled=true;btn.textContent='Сохраняю…';
-   const {error:updateError}=await sb.from('store_orders').update({status:chosen}).eq('id',id);
-   if(updateError){status.textContent='Не удалось изменить статус: '+updateError.message;btn.disabled=false;btn.textContent='Сохранить статус';return;}
-   await loadOrders();
-  }));
+
+  list.querySelectorAll('[data-save-status]').forEach(btn=>{
+    btn.addEventListener('click',async()=>{
+      const card=btn.closest('[data-order-id]');
+      const id=card.dataset.orderId;
+      const chosen=card.querySelector('select').value;
+
+      btn.disabled=true;
+      btn.textContent='Сохраняю…';
+
+      const {error}=await sb
+        .from('store_orders')
+        .update({status:chosen})
+        .eq('id',id);
+
+      if(error){
+        status.textContent='Не удалось изменить статус: '+error.message;
+        btn.disabled=false;
+        btn.textContent='Сохранить статус';
+        return;
+      }
+
+      await loadOrders();
+    });
+  });
+
+  list.querySelectorAll('[data-close-order]').forEach(btn=>{
+    btn.addEventListener('click',async()=>{
+      const card=btn.closest('[data-order-id]');
+      const id=card.dataset.orderId;
+
+      if(!confirm('Закрыть заказ? Он исчезнет из панели продавца.')) return;
+
+      btn.disabled=true;
+      btn.textContent='Закрываю…';
+
+      const {error}=await sb
+        .from('store_orders')
+        .update({closed:true})
+        .eq('id',id);
+
+      if(error){
+        status.textContent='Не удалось закрыть заказ: '+error.message;
+        btn.disabled=false;
+        btn.textContent='Закрыть заказ';
+        return;
+      }
+
+      card.remove();
+
+      const count=list.querySelectorAll('.v3-order-card').length;
+      status.textContent=count
+        ? 'Активных заказов: '+count
+        : 'Активных заказов нет.';
+    });
+  });
+}
 
 list.querySelectorAll('[data-close-order]').forEach(btn=>{
   btn.addEventListener('click',async()=>{
