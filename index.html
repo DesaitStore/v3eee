@@ -1009,6 +1009,7 @@ document.getElementById('confirm-payment').addEventListener('click',()=>{
 @media(min-width:760px){.cart-panel-backdrop{align-items:center}.cart-trigger{right:28px;bottom:26px}}
 @media(max-width:520px){.cart-trigger{right:12px;bottom:12px;padding:12px 15px}.cart-panel{padding:17px;border-radius:18px;max-height:88dvh}.cart-item{grid-template-columns:1fr}.cart-item-tools{justify-content:flex-start}.cart-product-actions>*{flex:1 1 100%}}
 @media(prefers-reduced-motion:reduce){.cart-panel-backdrop,.cart-panel{animation:none!important}.cart-trigger,.cart-add-btn{transition:none}}
+.checkout-fields{display:grid;gap:8px;margin:4px 0 16px}.checkout-fields h4{margin:0 0 4px;font-size:17px}.checkout-fields label{font-size:13px;font-weight:700;margin-top:4px}.checkout-fields label span{color:#d33}.checkout-fields label small{font-weight:400;opacity:.7}.checkout-fields input,.checkout-fields textarea{box-sizing:border-box;width:100%;min-width:0;border:1px solid #b9c7d8;border-radius:11px;padding:12px 13px;background:var(--panel,#fff);color:var(--text,#171717);font:inherit;font-size:14px;outline:none}.checkout-fields input:focus,.checkout-fields textarea:focus{border-color:#3688f5;box-shadow:0 0 0 3px #3688f522}.checkout-fields textarea{resize:vertical;min-height:76px}
 </style>
 <style id="top-nav-cart-styles">
 .nav .nav-cart-trigger{position:relative;inset:auto;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:0;width:46px;height:46px;padding:9px;margin-left:auto;border:1px solid var(--line,#e5e7eb);border-radius:14px;background:var(--panel,#fff);color:var(--text,#171717);box-shadow:none;cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease}
@@ -1020,7 +1021,7 @@ document.getElementById('confirm-payment').addEventListener('click',()=>{
 @media(prefers-reduced-motion:reduce){.nav .nav-cart-trigger{transition:none}}
 </style>
 <div aria-hidden="true" class="account-backdrop" id="account-backdrop"><section aria-labelledby="account-title" aria-modal="true" class="account-panel" role="dialog"><div class="account-head"><h2 id="account-title">Личный кабинет</h2><button aria-label="Закрыть" class="account-close" id="account-close" type="button">×</button></div><div id="account-content"></div></section></div>
-<div aria-hidden="true" class="cart-panel-backdrop" id="cart-backdrop"><section aria-labelledby="cart-heading" aria-modal="true" class="cart-panel" role="dialog"><div class="cart-panel-head"><h3 id="cart-heading">Твоя корзина</h3><button aria-label="Закрыть корзину" class="cart-close" id="cart-close" type="button">×</button></div><div id="cart-items"></div><div class="cart-total"><span>Итого</span><span id="cart-total">0 ₽</span></div><button class="cart-checkout" id="cart-checkout" type="button">Перейти к оформлению</button><div class="cart-message" id="cart-message" role="status"></div></section></div>
+<div aria-hidden="true" class="cart-panel-backdrop" id="cart-backdrop"><section aria-labelledby="cart-heading" aria-modal="true" class="cart-panel" role="dialog"><div class="cart-panel-head"><h3 id="cart-heading">Твоя корзина</h3><button aria-label="Закрыть корзину" class="cart-close" id="cart-close" type="button">×</button></div><div id="cart-items"></div><div class="cart-total"><span>Итого</span><span id="cart-total">0 ₽</span></div><div class="checkout-fields"><h4>Оформление заказа</h4><label for="checkout-contact">Куда написать по заказу? <span>*</span></label><input id="checkout-contact" type="text" autocomplete="off" placeholder="Telegram @username или другой контакт" maxlength="160" required><label for="checkout-comment">Комментарий к заказу <small>(необязательно)</small></label><textarea id="checkout-comment" rows="3" maxlength="1000" placeholder="Например, нужный регион или дополнительные пожелания"></textarea></div><button class="cart-checkout" id="cart-checkout" type="button">Отправить заказ</button><div class="cart-message" id="cart-message" role="status"></div></section></div>
 <script id="cart-functionality">
 (()=>{
  const $=id=>document.getElementById(id); const storageKey='v3eny_store_cart_v1'; let cart=[];
@@ -1037,10 +1038,9 @@ document.getElementById('confirm-payment').addEventListener('click',()=>{
  $('add-to-cart').addEventListener('click',()=>{if(!chosenProduct||!chosenOption)return;const match=String(chosenOption.price).match(/[\d\s]+/);if(!match){$('cart-message').textContent='Для этого варианта цена ещё не указана. Выбери вариант с фиксированной ценой.';open();return}const price=Number(match[0].replace(/\s/g,''));if(!Number.isFinite(price)||price<=0){$('cart-message').textContent='У этого варианта пока нет фиксированной цены.';open();return}const name=chosenOption.name;const found=cart.find(x=>x.product===chosenProduct&&x.name===name&&x.price===price);if(found)found.qty++;else cart.push({product:chosenProduct,name,price,qty:1});save();const btn=$('add-to-cart');btn.textContent='✓ Добавлено';setTimeout(()=>{btn.textContent='＋ В корзину'},1100);});
  $('cart-checkout').addEventListener('click',async()=>{
   if(!cart.length){$('cart-message').textContent='Сначала добавь товар в корзину.';return;}
-  const contact=prompt('Куда написать по заказу? Введи свой Telegram @username или другой контакт:');
-  if(contact===null)return;
-  if(!contact.trim()){$('cart-message').textContent='Укажи контакт, чтобы продавец мог связаться с тобой.';return;}
-  const comment=prompt('Комментарий к заказу (необязательно):')||'Нет комментария';
+  const contact=$('checkout-contact').value.trim();
+  const comment=$('checkout-comment').value.trim()||'Нет комментария';
+  if(!contact){$('cart-message').style.color='#a23b2b';$('cart-message').textContent='Укажи Telegram @username или другой контакт в поле выше.';$('checkout-contact').focus();return;}
   const total=cart.reduce((sum,item)=>sum+item.price*item.qty,0);
   const products=cart.map(item=>item.name+' × '+item.qty+' — '+rub(item.price*item.qty)).join('\n');
   const payload={
@@ -1065,6 +1065,8 @@ document.getElementById('confirm-payment').addEventListener('click',()=>{
     $('cart-message').textContent='Заявка отправлена. Проверь Telegram у продавца и дождись ответа перед оплатой.';
     cart=[];
     save();
+    $('checkout-contact').value='';
+    $('checkout-comment').value='';
   }catch(error){
     $('cart-message').style.color='#a23b2b';
     $('cart-message').textContent='Не удалось отправить заявку. Попробуй ещё раз или напиши продавцу напрямую.';
