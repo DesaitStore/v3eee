@@ -810,7 +810,7 @@ footer,.foot{color:#fff!important}
 <div class="empty" id="empty">Ничего не найдено. Попробуй изменить запрос.</div>
 </section>
 </main>
-<footer><div class="wrap foot"><span><strong>v3eny store</strong> · Цифровые товары для игр и сервисов</span><span>Цены и оформление демонстрационные · © 2026</span></div></footer>
+<footer><div class="wrap foot"><span><strong>v3eny store</strong> · Цифровые товары для игр и сервисов</span><span>Цены указаны в каталоге · © 2026</span></div></footer>
 <div aria-labelledby="modal-title" aria-modal="true" class="modal-backdrop" id="backdrop" role="dialog"><div class="modal product-modal">
 <button aria-label="Закрыть" class="modal-x" id="close-x">×</button>
 <div class="modal-kicker">V3ENY STORE · КАТАЛОГ</div>
@@ -1035,7 +1035,44 @@ document.getElementById('confirm-payment').addEventListener('click',()=>{
  function close(){ $('cart-backdrop').classList.remove('open');$('cart-backdrop').setAttribute('aria-hidden','true')}
  $('cart-trigger').addEventListener('click',open);$('cart-close').addEventListener('click',close);$('cart-backdrop').addEventListener('click',e=>{if(e.target===$('cart-backdrop'))close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
  $('add-to-cart').addEventListener('click',()=>{if(!chosenProduct||!chosenOption)return;const match=String(chosenOption.price).match(/[\d\s]+/);if(!match){$('cart-message').textContent='Для этого варианта цена ещё не указана. Выбери вариант с фиксированной ценой.';open();return}const price=Number(match[0].replace(/\s/g,''));if(!Number.isFinite(price)||price<=0){$('cart-message').textContent='У этого варианта пока нет фиксированной цены.';open();return}const name=chosenOption.name;const found=cart.find(x=>x.product===chosenProduct&&x.name===name&&x.price===price);if(found)found.qty++;else cart.push({product:chosenProduct,name,price,qty:1});save();const btn=$('add-to-cart');btn.textContent='✓ Добавлено';setTimeout(()=>{btn.textContent='＋ В корзину'},1100);});
- $('cart-checkout').addEventListener('click',()=>{if(!cart.length){$('cart-message').textContent='Сначала добавь товар в корзину.';return}$('cart-message').textContent='Корзина готова. Для реального оформления необходимо подключить сервер, платёжный сервис и отправку заказа в Telegram.';});
+ $('cart-checkout').addEventListener('click',async()=>{
+  if(!cart.length){$('cart-message').textContent='Сначала добавь товар в корзину.';return;}
+  const contact=prompt('Куда написать по заказу? Введи свой Telegram @username или другой контакт:');
+  if(contact===null)return;
+  if(!contact.trim()){$('cart-message').textContent='Укажи контакт, чтобы продавец мог связаться с тобой.';return;}
+  const comment=prompt('Комментарий к заказу (необязательно):')||'Нет комментария';
+  const total=cart.reduce((sum,item)=>sum+item.price*item.qty,0);
+  const products=cart.map(item=>item.name+' × '+item.qty+' — '+rub(item.price*item.qty)).join('\n');
+  const payload={
+    product:products,
+    price:rub(total),
+    contact:contact.trim(),
+    comment:comment.trim()||'Нет комментария'
+  };
+  const button=$('cart-checkout');
+  button.disabled=true;
+  button.textContent='Отправляем…';
+  $('cart-message').style.color='#176b37';
+  $('cart-message').textContent='Отправляем заявку в Telegram…';
+  try{
+    await fetch('https://script.google.com/macros/s/AKfycbyuzvbvoH3F-ql90Fw3vZlmPTBusOauWBqIB8EdxCuBfvyFtFbl6YoaH6A3gGIPzQAH/exec',{
+      method:'POST',
+      mode:'no-cors',
+      redirect:'follow',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify(payload)
+    });
+    $('cart-message').textContent='Заявка отправлена. Проверь Telegram у продавца и дождись ответа перед оплатой.';
+    cart=[];
+    save();
+  }catch(error){
+    $('cart-message').style.color='#a23b2b';
+    $('cart-message').textContent='Не удалось отправить заявку. Попробуй ещё раз или напиши продавцу напрямую.';
+  }finally{
+    button.disabled=false;
+    button.textContent='Перейти к оформлению';
+  }
+});
  render();
 })();
 </script>
